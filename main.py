@@ -1,17 +1,17 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QLineEdit, QWidget, QSpacerItem
+from login_widget import LoginWidget
+
+class MainWindow(QMainWindow):
+    def __init__(self) -> None:
+        super().__init__()
+        # Window setup
+        self.showMaximized()
+        self.setWindowTitle('Hybparc EKG (Aruco)')
+
 
 app = QApplication([])
-window = QMainWindow()
-
-# Window setup
-window.showFullScreen()
-window.setWindowTitle('Hybparc EKG (Aruco)')
-
-
-# Widgets
-label = QLabel('MITZ x NCT Hybparc EKG Training', alignment=Qt.AlignmentFlag.AlignLeading)
-window.setCentralWidget(label)
+window = MainWindow()
+window.setCentralWidget(LoginWidget())
 
 window.show()
 app.exec()
