@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QWidget, QDialogButtonBox, QHBoxLayout, QLabel, QPushButton, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QDialogButtonBox, QHBoxLayout, QLabel, QVBoxLayout
 from PyQt6.QtGui import QPixmap, QMovie
 from PyQt6.QtCore import Qt, pyqtSignal, QSize, QTimer
 
@@ -59,7 +59,7 @@ class ProcessingWidget(QWidget):
         self.movie.start()
 
         isFirstTry = False
-        QTimer.singleShot(5000 if isFirstTry else 2000, lambda: self.handle_timeout(
+        QTimer.singleShot(1000 if isFirstTry else 1000, lambda: self.handle_timeout(
             self.iconLabel, self.textLabel, self.gifLabel, self.movie, self.buttonBox))
 
     # We go here after fake processing time

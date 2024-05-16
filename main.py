@@ -1,7 +1,10 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QLineEdit, QWidget, QSpacerItem
+from ArucoRoi.detector import Detector
+from cv2 import imread
+from PyQt6.QtWidgets import QApplication, QMainWindow
 from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
+from results_widget import ResultsWidget
 
 class MainWindow(QMainWindow):
     
@@ -9,6 +12,10 @@ class MainWindow(QMainWindow):
     def __init__(self):
         print('[Hybparc] Booting up')
         super().__init__()
+        
+        # Detector setup
+        self.detector = Detector('./config.json')
+        
         # Window setup
         self.showMaximized()
         self.setWindowTitle('Hybparc EKG (Aruco)')
@@ -36,13 +43,21 @@ class MainWindow(QMainWindow):
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
+        
+        # show ui, disappears after time by its own (fake loading screen)
         processing_widget = ProcessingWidget()
         processing_widget.processing_complete.connect(self.show_results_widget)
         self.setCentralWidget(processing_widget)
+        
+        # actually run detection (this should work by its own)
+        frame = imread('./tmp/test1.png')
+        result_frame, self.correct_markers = self.detector.image_detect(frame) # ! DETECTION CALL
 
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')
-        pass
+        results_widget = ResultsWidget(self.correct_markers)
+        #results_widget.retry_triggered.connect(self.show_place_electrodes)
+        self.setCentralWidget(results_widget)
     
 if __name__ == "__main__":
     app = QApplication([])
