@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import QLabel, QPushButton, QVBoxLayout, QLineEdit, QWidget, QComboBox, QFormLayout, QHBoxLayout
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont, QPalette
 
 class LoginWidget(QWidget):
+    loginSuccessful = pyqtSignal(str, str)
+    
     def __init__(self):
         super().__init__()
 
@@ -16,46 +18,46 @@ class LoginWidget(QWidget):
 
         mediumFont = QFont()
         mediumFont.setPointSize(28)
-
+        
         nameLabel = QLabel("Name:")
         nameLabel.setFont(mediumFont)
         idTypeLabel = QLabel("ID-Typ:")
         idTypeLabel.setFont(mediumFont)
 
-        m_lineEditName = QLineEdit()
-        m_lineEditName.setFont(mediumFont)
+        self.m_lineEditName = QLineEdit()
+        self.m_lineEditName.setFont(mediumFont)
 
-        m_comboBoxType = QComboBox()
-        m_comboBoxType.addItem("ZIH (@tu-dresden.de)", 0)
-        m_comboBoxType.addItem("MED (@med.tu-dresden.de)", 1)
-        m_comboBoxType.setFont(mediumFont)
+        self.m_comboBoxType = QComboBox()
+        self.m_comboBoxType.addItem("ZIH (@tu-dresden.de)", 0)
+        self.m_comboBoxType.addItem("MED (@med.tu-dresden.de)", 1)
+        self.m_comboBoxType.setFont(mediumFont)
 
         formLayout = QFormLayout()
-        formLayout.addRow(nameLabel, m_lineEditName)
-        formLayout.addRow(idTypeLabel, m_comboBoxType)
+        formLayout.addRow(nameLabel, self.m_lineEditName)
+        formLayout.addRow(idTypeLabel, self.m_comboBoxType)
 
         loginButton = QPushButton("Login")
-        loginButton.clicked.connect(LoginWidget.attempt_login)
+        loginButton.clicked.connect(self.attempt_login)
         loginButton.setShortcut(Qt.Key.Key_Return)
         loginButton.setFont(mediumFont)
 
         buttonLayout = QHBoxLayout()
         buttonLayout.addStretch()
         buttonLayout.addWidget(loginButton)
-
-        m_loginFailedLabel = QLabel("Bitte gültige ID eingeben.")
+        
+        self.m_loginFailedLabel = QLabel("Bitte gültige ID eingeben.")
         loginFailedLabelPalette = QPalette()
         loginFailedLabelPalette.setColor(QPalette.ColorGroup.Normal, QPalette.ColorRole.Base, Qt.GlobalColor.red)
-        m_loginFailedLabel.setPalette(loginFailedLabelPalette)
-        m_loginFailedLabel.setVisible(False)
-        m_loginFailedLabel.setFont(largeFont)
+        self.m_loginFailedLabel.setPalette(loginFailedLabelPalette)
+        self.m_loginFailedLabel.setVisible(False)
+        self.m_loginFailedLabel.setFont(mediumFont)
 
         elementsLayout = QVBoxLayout()
         elementsLayout.addWidget(headerLabel)
         elementsLayout.addSpacing(50)
         elementsLayout.addLayout(formLayout)
         elementsLayout.addLayout(buttonLayout)
-        elementsLayout.addWidget(m_loginFailedLabel)
+        elementsLayout.addWidget(self.m_loginFailedLabel)
 
         horizontalLayout = QHBoxLayout()
         horizontalLayout.addStretch()
@@ -69,6 +71,10 @@ class LoginWidget(QWidget):
 
         self.setLayout(mainLayout)
 
-    
-    def attempt_login():
-        pass
+    def attempt_login(self):
+        if self.m_lineEditName.text() == '':
+            self.m_loginFailedLabel.setVisible(True)
+            return
+        else:
+            login_type = 'tu-dresden.de' if self.m_comboBoxType.currentIndex() == 0 else 'med.tu-dresden.de'
+            self.loginSuccessful.emit(self.m_lineEditName.text(), login_type)
