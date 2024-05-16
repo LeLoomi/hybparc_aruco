@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg
+    width="130mm"
+    height="52.5mm"
+    version="1.1"
+    viewBox="0 0 130 52.5"
+    xmlns="http://www.w3.org/2000/svg">
+
+ <g transform="matrix(.16307 0 0 .16307 39.377 56.862)" fill="#dc0000" stroke-width=".27755">
+  <rect transform="rotate(-44.904)" x="84.526" y="-84.53" width="21.488" height="128.51"/>
+  <rect transform="rotate(225.1)" x="9.3591" y="31.186" width="21.488" height="128.51"/>
+ </g>
+ <g transform="matrix(.13509 0 0 .13509 106.66 34.841)">
+  <g transform="translate(-23.567 -9.5173)" fill="#00de00">
+   <rect transform="rotate(42.478)" x="141.68" y="-115.59" width="17.264" height="157.31" stroke-width=".265"/>
+   <rect transform="matrix(.67534 -.7375 .73851 .67424 0 0)" x="-41.965" y="71.769" width="17.88" height="70.665" stroke-width=".24819"/>
+   <rect transform="rotate(42.478)" x="141.68" y="-115.59" width="17.264" height="157.31" stroke-width=".265"/>
+   <rect transform="matrix(.67534 -.7375 .73851 .67424 0 0)" x="-41.965" y="71.769" width="17.88" height="70.665" stroke-width=".24819"/>
+  </g>
+ </g>
+ <rect x="69.258" y=".49712" width="33.995" height="33.995" ry="0" fill-opacity="0" stroke="#000" stroke-width=".8"/>
+ <rect x="71.308" y="2.5465" width="29.896" height="29.896" stroke="#000" stroke-width=".8"/>
+ <g fill="#fff">
+  <rect x="73.142" y="11.22" width="4.9738" height="19.644"/>
+  <rect x="73.142" y="3.934" width="13.849" height="4.8324"/>
+  <rect x="78.116" y="20.986" width="4.9738" height="9.8782"/>
+  <rect x="83.089" y="16.12" width="4.9738" height="4.8665"/>
+  <rect x="94.989" y="3.934" width="4.7014" height="4.8324"/>
+  <rect x="83.089" y="25.83" width="4.9738" height="5.0337"/>
+  <rect x="88.063" y="11.287" width="11.661" height="4.8324"/>
+  <rect x="94.942" y="20.986" width="4.7014" height="9.8782"/>
+ </g>
+ <rect x="2.5832" y=".49712" width="33.995" height="33.995" ry="0" fill-opacity="0" stroke="#000" stroke-width=".8"/>
+ <rect x="4.6326" y="2.5465" width="29.896" height="29.896" stroke="#000" stroke-width=".8"/>
+ <g fill="#fff">
+  <rect x="6.4667" y="11.22" width="4.9738" height="19.644"/>
+  <rect x="6.4667" y="3.934" width="13.849" height="4.8324"/>
+  <rect x="11.44" y="20.986" width="4.9738" height="9.8782"/>
+  <rect x="16.414" y="16.12" width="4.9738" height="4.8665"/>
+  <rect x="28.314" y="3.934" width="4.7014" height="4.8324"/>
+  <rect x="16.414" y="25.83" width="4.9738" height="5.0337"/>
+  <rect x="21.388" y="11.287" width="11.661" height="4.8324"/>
+  <rect x="28.267" y="20.986" width="4.7014" height="9.8782"/>
+ </g>
+ <rect transform="rotate(-34.765)" x=".27343" y="18.223" width="4.6697" height="31.627" fill="#00c4ff" stroke="#0080ff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7"/>
+ <path transform="matrix(.15162 -.10524 .14107 .20324 -46.613 -17.999)" d="m178.65 240.86h-12.65-12.65l12.65-21.911 6.3252 10.956z" fill="#00c4fd" stroke="#0080ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.7795"/>
+ <g fill="none" stroke-linecap="round">
+  <path d="m10.615 14.814 3.8361-2.6627" stroke="#004eff" stroke-width=".7"/>
+  <path d="m26.582 37.302 3.3575-2.3358" stroke="#004eff" stroke-width="1.2"/>
+  <path d="m2.0672 37.966c-1.286-3.5527-2.2162-7.9112 5.0883-12.86 8.1167-5.4995 14.228 3.3029 18.331-3.4049 6.6014-10.793 10.743-14.885 18.261-9.5994" stroke="#e4d000" stroke-width="1.4"/>
+ </g>
+</svg>
