@@ -42,7 +42,9 @@ class ResultsWidget(QWidget):
         for key in self.correct_electrodes.keys():
             # Create a item for each detected electrode
             item = QTreeWidgetItem()
-            item.setText(0, self.correct_electrodes[key]['roi_name'])
+            item.setText(0,
+                self.correct_electrodes[key]['roi_name'] + '({})'.format(self.correct_electrodes[key]['roi_desc'])
+            )
             #item.setIcon(0, QIcon(detection.isCorrect ? './icons/correct.svg' : './icons/wrong.svg'))
 
             # Set the icon
