@@ -51,11 +51,11 @@ class MainWindow(QMainWindow):
         
         # actually run detection (this should work by its own)
         frame = imread('./tmp/test1.png')
-        result_frame, self.correct_markers = self.detector.image_detect(frame) # ! DETECTION CALL
+        result_frame, self.roi_statuses = self.detector.image_detect(frame) # ! DETECTION CALL
 
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')
-        results_widget = ResultsWidget(self.correct_markers)
+        results_widget = ResultsWidget(self.roi_statuses)
         #results_widget.retry_triggered.connect(self.show_place_electrodes)
         self.setCentralWidget(results_widget)
     

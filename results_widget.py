@@ -1,16 +1,20 @@
-from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox, QPushButton
+from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox, QPushButton, QHeaderView
 from PyQt6.QtGui import QPalette, QColor, QPixmap, QIcon, QMovie
 from PyQt6.QtCore import QSize
 
 class ResultsWidget(QWidget):
     
-    def __init__(self, electrode_detections):
+    def __init__(self, roi_statuses):
         super().__init__()
-        self.correct_electrodes = electrode_detections
+        self.roi_statuses = roi_statuses
+    
+        # default all correct, if one is incorrect set false flag
+        allDetectionsCorrect = True
+        for key in roi_statuses:
+            if roi_statuses[key]['fullfilled'] == False:
+                allDetectionsCorrect = False
     
         # Create ui
-        allDetectionsCorrect = True
-
         feedbackLabel = QLabel(
                 'Alle Elektroden wurden richtig erkannt! Prima!'
                 if allDetectionsCorrect else
@@ -26,26 +30,25 @@ class ResultsWidget(QWidget):
         feedbackLabel.setPalette(palette)
 
         upperLayout = QHBoxLayout()
-        if allDetectionsCorrect:
-            iconLabel = QLabel()
-            pixmap = QPixmap('./icons/correct.svg')
-            scaledPixmap = pixmap.scaled(QSize(250, 200))
+        iconLabel = QLabel()
+        pixmap = QPixmap('./icons/correct.svg' if allDetectionsCorrect else './icons/wrong.svg') 
+        scaledPixmap = pixmap.scaled(QSize(100, 100))
 
-            iconLabel.setPixmap(scaledPixmap)
-            upperLayout.addWidget(iconLabel)
-
+        iconLabel.setPixmap(scaledPixmap)
+        upperLayout.addWidget(iconLabel)
         upperLayout.addWidget(feedbackLabel)
 
         treeWidget = QTreeWidget()
         treeWidget.headerItem().setText(0, 'Elektrodenstatus')
 
-        for key in self.correct_electrodes.keys():
+        for key in self.roi_statuses.keys():
             # Create a item for each detected electrode
             item = QTreeWidgetItem()
             item.setText(0,
-                self.correct_electrodes[key]['roi_name'] + '({})'.format(self.correct_electrodes[key]['roi_desc'])
+                self.roi_statuses[key]['roi_name'] + '({})'.format(self.roi_statuses[key]['roi_desc'])
             )
-            #item.setIcon(0, QIcon(detection.isCorrect ? './icons/correct.svg' : './icons/wrong.svg'))
+            item.setIcon(0, 
+                QIcon('./icons/correct.svg' if roi_statuses[key]['fullfilled'] == True else './icons/wrong.svg'))
 
             # Set the icon
             #if (!detection.isCorrect) {
@@ -57,9 +60,9 @@ class ResultsWidget(QWidget):
             treeWidget.insertTopLevelItem(treeWidget.topLevelItemCount(), item)
 
         treeWidget.expandAll()
-        treeWidget.setIconSize(QSize(40, 40))
+        treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
-        treeWidget.setFixedHeight(treeWidget.topLevelItemCount() * 70 + 80)
+        #treeWidget.setFixedHeight(treeWidget.topLevelItemCount() * 80 + 90)
 
         buttonBox = QDialogButtonBox()
         movie = QMovie('./gifs/bulb_flashing.gif')
