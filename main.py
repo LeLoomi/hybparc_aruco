@@ -5,6 +5,7 @@ from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
 from results_widget import ResultsWidget
+from qt_material import apply_stylesheet
 
 class MainWindow(QMainWindow):
     
@@ -62,5 +63,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
+    apply_stylesheet(app, theme='light_blue.xml')
     window.show()
     app.exec()

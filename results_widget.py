@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox, QPushButton, QHeaderView
-from PyQt6.QtGui import QPalette, QColor, QPixmap, QIcon, QMovie
+from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox
+from PyQt6.QtGui import QPixmap, QIcon, QMovie
 from PyQt6.QtCore import QSize
 
 class ResultsWidget(QWidget):
@@ -24,10 +24,6 @@ class ResultsWidget(QWidget):
         font = feedbackLabel.font()
         font.setPointSize(32)
         feedbackLabel.setFont(font)
-
-        palette = feedbackLabel.palette()
-        palette.setColor(QPalette.ColorGroup.Normal, QPalette.ColorRole.Base, QColor(98, 122, 54) if allDetectionsCorrect else QColor(166, 110, 38))
-        feedbackLabel.setPalette(palette)
 
         upperLayout = QHBoxLayout()
         iconLabel = QLabel()
@@ -62,7 +58,6 @@ class ResultsWidget(QWidget):
         treeWidget.expandAll()
         treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
-        #treeWidget.setFixedHeight(treeWidget.topLevelItemCount() * 80 + 90)
 
         buttonBox = QDialogButtonBox()
         movie = QMovie('./gifs/bulb_flashing.gif')
