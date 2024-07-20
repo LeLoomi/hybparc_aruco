@@ -1,5 +1,6 @@
 from ArucoRoi.detector import Detector
 from cv2 import imread
+from numpy import concatenate
 from imutils.video import VideoStream
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from login_widget import LoginWidget
@@ -43,7 +44,9 @@ class MainWindow(QMainWindow):
         place_electrodes_widget.electrodes_placed.connect(self.show_processing_widget)
         self.setCentralWidget(place_electrodes_widget)
         
-        self.stream = VideoStream(0).start() # warm up camera
+        # Warm up cameras
+        self.stream0 = VideoStream(0).start()
+        self.stream1 = VideoStream(1).start()
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -53,9 +56,10 @@ class MainWindow(QMainWindow):
         processing_widget.processing_complete.connect(self.show_results_widget)
         self.setCentralWidget(processing_widget)
         
-        # actually run detection (this should work by its own)
-        #frame = imread('./tmp/test1.png')
-        frame = self.stream.read()
+        # actually run detection
+        in0 = self.stream0.read()
+        in1 = self.stream1.read()
+        frame = concatenate((in0, in1), axis=0)
         result_frame, self.roi_statuses = self.detector.image_detect(frame) # ! DETECTION CALL
 
     def show_results_widget(self):
