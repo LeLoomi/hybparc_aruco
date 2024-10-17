@@ -1,5 +1,5 @@
 import cv2 as cv    # sadly we have to load cv here, since we use it to capture the images
-from ArucoRoi.detector import Detector
+from lib.detector import Detector
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
