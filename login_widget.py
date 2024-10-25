@@ -57,7 +57,7 @@ class LoginWidget(QWidget):
         elementsLayout.addWidget(headerLabel)
         elementsLayout.addSpacing(50)
         elementsLayout.addLayout(formLayout)
-        elementsLayout.addLayout(buttonLayout)
+        #elementsLayout.addLayout(buttonLayout)
         elementsLayout.addWidget(self.m_loginFailedLabel)
 
         horizontalLayout = QHBoxLayout()

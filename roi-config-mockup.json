@@ -1,0 +1,44 @@
+{
+  "region_marker": [
+    {
+      "align_id": 29,
+      "align_name": "Torso",
+      "rois": [
+        {
+          "reg_name": "V1",
+          "reg_desc": "Mikroskopiell",
+          "reg_shape": "circle",
+          "reg_dX": 0,
+          "reg_dY": 0,
+          "reg_radius": 400,
+          "desired_marker_id": 21
+        },
+        {
+          "reg_name": "V2",
+          "reg_desc": "Arteriell",
+          "reg_shape": "circle",
+          "reg_dX": 580,
+          "reg_dY": 0,
+          "reg_radius": 100,
+          "desired_marker_id": 31
+        }
+      ]
+    },
+    {
+      "align_id": 39,
+      "align_name": "linke Hand",
+      "rois": [
+        {
+          "reg_name": "X1",
+          "reg_desc": "Verwirrend",
+          "reg_shape": "rectangle",
+          "reg_dX": 330,
+          "reg_dY": -100,
+          "reg_width": 500,
+          "reg_height": 270,
+          "desired_marker_id": 20
+        }
+      ]
+    }
+  ]
+}

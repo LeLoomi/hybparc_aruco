@@ -6,8 +6,11 @@ from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
 from results_widget import ResultsWidget
 from qt_material import apply_stylesheet    # optional prettifier
+from json import load
 
 class MainWindow(QMainWindow):
+    
+    config_path = './roi-config-mockup.json.json'
     
     # Entry into the GUI
     def __init__(self):
@@ -15,7 +18,11 @@ class MainWindow(QMainWindow):
         super().__init__()
         
         # Detector setup, loaded file is the ROI config
-        self.detector = Detector('./config.json')
+        self.detector = Detector(self.config_path)
+        
+        # load config file so we can construct the UI accordingly later
+        with open(self.config_path, 'r') as f:
+            self.config_data = load(f)
         
         # Window setup
         self.showMaximized()
@@ -43,8 +50,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(place_electrodes_widget)
         
         # Setup and warm up cameras
-        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_DSHOW)
-        self.stream1 = cv.VideoCapture(index=1, apiPreference=cv.CAP_DSHOW)
+        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_AVFOUNDATION)
+        self.stream1 = cv.VideoCapture(index=1, apiPreference=cv.CAP_AVFOUNDATION)
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -57,13 +64,15 @@ class MainWindow(QMainWindow):
         # actually run detection
         ret0, in0 = self.stream0.read()
         ret1, in1 = self.stream1.read()
+        cv.resize(in1, (in0.shape[:2]))     # ! Shenanigans so we can "use" both cameras in case of image shape mismatch
         
-        frame = cv.vconcat(in0, in1)
-        result_frame, self.roi_statuses = self.detector.image_detect(frame) # ! DETECTION CALL
+        frame = cv.vconcat(in0, in1)    # TODO Images might be different sizes, currently vconcat just crashes out if thats the case
+        result_frame, self.roi_statuses = self.detector.image_detect(in0) # ! DETECTION CALL
+        #print(self.roi_statuses)
 
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')
-        results_widget = ResultsWidget(self.roi_statuses)
+        results_widget = ResultsWidget(self.config_data, self.roi_statuses)
         # TODO results_widget.retry_triggered.connect(self.show_place_electrodes)
         self.setCentralWidget(results_widget)
         self.stream0.release()

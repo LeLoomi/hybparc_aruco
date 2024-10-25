@@ -4,15 +4,18 @@ from PyQt6.QtCore import QSize
 
 class ResultsWidget(QWidget):
     
-    def __init__(self, roi_statuses):
+    def __init__(self, config_data, roi_statuses):
         super().__init__()
         self.roi_statuses = roi_statuses
     
-        # default all correct, if one is incorrect set false flag
+        # loop align markers/"big body regions" like torso
+        rois = list()   # to store the individual rois
+        for big_region in config_data['region_marker']:
+            # loop rois in the big regions
+            for roi in big_region['rois']:
+                rois.append(roi)
+    
         allDetectionsCorrect = True
-        for key in roi_statuses:
-            if roi_statuses[key]['fullfilled'] == False:
-                allDetectionsCorrect = False
     
         # Create ui
         feedbackLabel = QLabel(
@@ -37,14 +40,23 @@ class ResultsWidget(QWidget):
         treeWidget = QTreeWidget()
         treeWidget.headerItem().setText(0, 'Elektrodenstatus')
 
-        for key in self.roi_statuses.keys():
+        print('\n')
+        print(self.roi_statuses)
+        print('\n')
+
+        for roi in rois:
             # Create a item for each detected electrode
             item = QTreeWidgetItem()
-            item.setText(0,
-                self.roi_statuses[key]['roi_name'] + '({})'.format(self.roi_statuses[key]['roi_desc'])
-            )
-            item.setIcon(0, 
-                QIcon('./icons/correct.svg' if roi_statuses[key]['fullfilled'] == True else './icons/wrong.svg'))
+            item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
+            item.setIcon(0, QIcon('./icons/wrong.svg'))
+            
+            # update icon to being correct in case the electrode is in the right spot
+            try:
+                if self.roi_statuses[roi['desired_marker_id']]['fullfilled']:
+                    item.setIcon(0, QIcon('./icons/correct.svg'))
+            except:
+                # if we end up here, not all desired markers were detected (no biggie, hopefully)
+                print('[Hybparc] {} was not detected!'.format(roi['desired_marker_id']))
 
             # Set the icon
             #if (!detection.isCorrect) {
