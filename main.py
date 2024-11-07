@@ -10,7 +10,7 @@ from json import load
 
 class MainWindow(QMainWindow):
     
-    config_path = './roi-config-mockup.json.json'
+    config_path = './roi-config-mockup.json'
     
     # Entry into the GUI
     def __init__(self):
@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         
         # Setup and warm up cameras
         self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_AVFOUNDATION)
-        self.stream1 = cv.VideoCapture(index=1, apiPreference=cv.CAP_AVFOUNDATION)
+        self.stream1 = cv.VideoCapture(index=0, apiPreference=cv.CAP_AVFOUNDATION)
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')
         results_widget = ResultsWidget(self.config_data, self.roi_statuses)
-        # TODO results_widget.retry_triggered.connect(self.show_place_electrodes)
+        results_widget.retry_triggered.connect(self.show_place_electrodes)
         self.setCentralWidget(results_widget)
         self.stream0.release()
         self.stream1.release()
