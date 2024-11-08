@@ -68,7 +68,6 @@ class MainWindow(QMainWindow):
         
         frame = cv.vconcat(in0, in1)    # TODO Images might be different sizes, currently vconcat just crashes out if thats the case
         result_frame, self.roi_statuses = self.detector.image_detect(in0) # ! DETECTION CALL
-        #print(self.roi_statuses)
 
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')

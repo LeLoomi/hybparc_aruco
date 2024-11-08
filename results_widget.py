@@ -19,7 +19,7 @@ class ResultsWidget(QWidget):
     
         # we make a list of markers and add all wrong ones to it
         # if any are on it, we can work with this
-        # TODO if needed is to flip the entire concept but that might require a rewrite of what ArucoRoi returns; mb)
+        # TODO if needed otherwise we might have to flip the entire concept but that might require a rewrite of what ArucoRoi returns; mb
         wrongMarkers = list()
         
 
@@ -31,7 +31,7 @@ class ResultsWidget(QWidget):
         treeWidget.headerItem().setText(0, 'Elektrodenstatus')
 
         # loop all desired ROIs and make list entries, we also check which are right and wrong here
-        # TODO move the analysis outside of the UI building??!?!?!??!!
+        # TODO move the analysis outside of the UI building??!?!?!??!! Would be nice ngl
         for roi in rois:
             # Create a item for each detected electrode
             item = QTreeWidgetItem()
@@ -41,7 +41,7 @@ class ResultsWidget(QWidget):
             
             # update icon to being correct in case the electrode is in the right spot
             try:
-                if self.roi_statuses[roi['desired_marker_id']]['fullfilled']:
+                if self.roi_statuses[roi['desired_marker_id']]['fulfilled']:
                     item.setIcon(0, QIcon('./icons/check-solid.svg'))
                     print('[Hybparc] \U0001F44D {} was in the RIGHT spot!'.format(wanted))
                 else:
@@ -53,13 +53,6 @@ class ResultsWidget(QWidget):
                 item.setIcon(0, QIcon('./icons/eye-slash-solid.svg'))
                 wrongMarkers.append(wanted)
                 print('[Hybparc] \U0001F6A8 {} was NOT detected!'.format(wanted))
-
-            # Set the icon
-            #if (!detection.isCorrect) {
-                # For misaligned electrodes, create a child item suggesting the correct positioning
-            #    const placementSuggestion = getPlacementSuggestion(detection.name)
-            #    item.setText(0, item.text(0) + ' - ' + placementSuggestion)
-            #}
 
             treeWidget.insertTopLevelItem(treeWidget.topLevelItemCount(), item)
         
