@@ -1,6 +1,7 @@
 import cv2 as cv    # sadly we have to load cv here, since we use it to capture the images
 from lib.detector import Detector
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from welcome_widget import WelcomeWidget
 from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
@@ -27,14 +28,22 @@ class MainWindow(QMainWindow):
         # Window setup
         self.showMaximized()
         self.setWindowTitle('Hybparc EKG (Aruco)')
-        self.show_login_widget()
+        self.show_welcome_widget()
 
+    # Welcome screen on the 
+    def show_welcome_widget(self):
+        print('[Hybparc] Diplaying login widget')
+        welcome_widget = WelcomeWidget()
+        welcome_widget.start_pressed.connect(self.show_place_electrodes)
+        self.setCentralWidget(welcome_widget)
+
+    # Helper func for login_widget
     def set_login_info(self, login_name, login_domain):
         print('[Hybparc] Logged in as {}@{}'.format(login_name, login_domain))
         self.login_name = login_name
         self.login_domain = login_domain
 
-    # First displayed widget
+    # For loggin in with your institution, so your result can be uploaded (CURRENTLY DEPRECATED)
     def show_login_widget(self):
         print('[Hybparc] Diplaying login widget')
         login_widget = LoginWidget()
