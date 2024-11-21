@@ -13,6 +13,8 @@ class MainWindow(QMainWindow):
     
     config_path = './roi-config-mockup.json'
     
+    roi_statuses = dict()
+    
     # Entry into the GUI
     def __init__(self):
         print('[Hybparc] Booting up')
@@ -59,8 +61,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(place_electrodes_widget)
         
         # Setup and warm up cameras
-        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_AVFOUNDATION)
-        self.stream1 = cv.VideoCapture(index=0, apiPreference=cv.CAP_AVFOUNDATION)
+        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
+        self.stream1 = cv.VideoCapture(index=1, apiPreference=cv.CAP_ANY)
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -70,13 +72,15 @@ class MainWindow(QMainWindow):
         processing_widget.processing_complete.connect(self.show_results_widget)
         self.setCentralWidget(processing_widget)
         
-        # actually run detection
-        ret0, in0 = self.stream0.read()
-        ret1, in1 = self.stream1.read()
-        cv.resize(in1, (in0.shape[:2]))     # ! Shenanigans so we can "use" both cameras in case of image shape mismatch
-        
-        frame = cv.vconcat(in0, in1)    # TODO Images might be different sizes, currently vconcat just crashes out if thats the case
-        result_frame, self.roi_statuses = self.detector.image_detect(in0) # ! DETECTION CALL
+        # ! DETECTION CALL
+        for i in range(3):  # we do n passes of analysis and aggregate the correct detections.
+            ret0, in0 = self.stream0.read()
+            ret1, in1 = self.stream1.read()
+            rs1 = cv.resize(in1, in0.shape[:2][::-1])   # We resize the second image to fit the first just in case theres a mismatch
+                                                        # TODO: Check which image is bigger and match that
+            frame = cv.vconcat((in0, rs1))
+            result_frame, result_dict = self.detector.image_detect(frame)
+            self.roi_statuses.update(result_dict)
 
     def show_results_widget(self):
         print('[Hybparc] Displaying results widget')
@@ -85,7 +89,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(results_widget)
         self.stream0.release()
         self.stream1.release()
-    
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
