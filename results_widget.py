@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox
 from PyQt6.QtGui import QPixmap, QIcon, QMovie, QFont
 from PyQt6.QtCore import QSize, pyqtSignal
+from tips_dialog import TipsDialog
 
 class ResultsWidget(QWidget):
     
@@ -93,6 +94,7 @@ class ResultsWidget(QWidget):
         
         helpButton = buttonBox.addButton('Tipps', QDialogButtonBox.ButtonRole.HelpRole)
         helpButton.setFont(font)
+        helpButton.clicked.connect(self.help_button_clicked)
 
         # assemble it all together
         contentLayout = QVBoxLayout()
@@ -112,3 +114,7 @@ class ResultsWidget(QWidget):
 
     def emit_retry_triggered(self):
         self.retry_triggered.emit()
+    
+    def help_button_clicked(self):
+        dialog = TipsDialog()
+        dialog.exec()

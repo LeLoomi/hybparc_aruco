@@ -18,7 +18,7 @@ class ProcessingWidget(QWidget):
         self.iconLabel.setPixmap(scaledPixmap)
         self.iconLabel.setVisible(False)
 
-        self.textLabel = QLabel('Berechne Daten. Bitte trete vom Körper zurück <br> und stelle sicher, dass die Marker nicht verdeckt sind.')
+        self.textLabel = QLabel('Berechne Daten. Bitte trete von der Puppe zurück und berühre diese nicht mehr.')
         self.textLabel.setTextFormat(Qt.TextFormat.RichText)
 
         font = self.textLabel.font()
