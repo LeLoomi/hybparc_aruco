@@ -11,8 +11,10 @@ General requirements
 - OpenCV
 - Numpy
 - PyQt6
+- [ArucoRoi](https://GitHub.com/LeLoomi/ArucoRoi) <small>(Must be manually put in /lib/)<sup>1</sup></small>
 - qt-material <small>(for styling only, but has to be manually removed from the code if unwanted)</small>
 
+<small>1: Correct the import error in detector.py by changing `import services` to `from . import services`.</small>
 
 Linux specific adjustments
 --------------------------
