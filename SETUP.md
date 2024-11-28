@@ -1,6 +1,6 @@
 # Marker identity and ROI overview
 > This needs to be kept up to date manually! It is recommended to define your setup here and create your config file after.\
-_Breaks in tables are ment for grouping only._
+_Breaks in tables are meant for grouping only._
 
 ## Marker identities
 Alignment: IDs are the anchor/alignment IDs for the ROIs. Use X9er IDs\
@@ -47,5 +47,3 @@ Electrode: IDs are the identities for the physical electrodes. Use XN\\{9} IDs
 | 49 | rBlack | circle | 41 | Region for right foot |
 | - |  |  |  |  |
 | 59 | rGreen | circle | 51 | Region for left foot |
-
-<sup>1</sup>: To be filled with medical info(?)
