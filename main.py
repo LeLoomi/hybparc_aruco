@@ -11,7 +11,7 @@ from json import load
 
 class MainWindow(QMainWindow):
     
-    config_path = './roi-config-mockup.json'
+    config_path = './mitz-ekg-config.json'
     
     roi_statuses = dict()
     
@@ -61,8 +61,15 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(place_electrodes_widget)
         
         # Setup and warm up cameras
+        #! Adjustments are specific to the HP 960 4K in our physical setup
         self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
-        self.stream1 = cv.VideoCapture(index=1, apiPreference=cv.CAP_ANY)
+        self.stream0.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
+        self.stream0.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
+        self.stream0.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
+        self.stream1 = cv.VideoCapture(index=4, apiPreference=cv.CAP_ANY)
+        self.stream1.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
+        self.stream1.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
+        self.stream1.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -73,7 +80,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(processing_widget)
         
         # ! DETECTION CALL
-        for i in range(3):  # we do n passes of analysis and aggregate the correct detections.
+        for i in range(10):  # we do n passes of analysis and aggregate the correct detections.
             ret0, in0 = self.stream0.read()
             ret1, in1 = self.stream1.read()
             rs1 = cv.resize(in1, in0.shape[:2][::-1])   # We resize the second image to fit the first just in case theres a mismatch

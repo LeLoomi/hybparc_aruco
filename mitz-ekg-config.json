@@ -1,0 +1,134 @@
+{
+  "region_marker": [
+    {
+      "align_id": 19,
+      "align_name": "central_chest",
+      "rois": [
+        {
+          "reg_name": "V1",
+          "reg_desc": "4. ICR rechts parasternal",
+          "reg_shape": "rectangle",
+          "reg_dX": -210,
+          "reg_dY": 125,
+          "reg_width": 155,
+          "reg_height": 60,
+          "desired_marker_id": 11
+        },
+        {
+          "reg_name": "V2",
+          "reg_desc": "4. ICR links parasternal",
+          "reg_shape": "rectangle",
+          "reg_dX": 0,
+          "reg_dY": 125,
+          "reg_width": 155,
+          "reg_height": 60,
+          "desired_marker_id": 12
+        },
+        {
+          "reg_name": "V3",
+          "reg_desc": "zwischen V2 und V4 auf der 5. Rippe",
+          "reg_shape": "rectangle",
+          "reg_dX": 160,
+          "reg_dY": 210,
+          "reg_width": 155,
+          "reg_height": 60,
+          "desired_marker_id": 13
+        },
+        {
+          "reg_name": "V4",
+          "reg_desc": "5. ICR links Medioclavicularlinie",
+          "reg_shape": "rectangle",
+          "reg_dX": 280,
+          "reg_dY": 305,
+          "reg_width": 155,
+          "reg_height": 60,
+          "desired_marker_id": 14
+        },
+        {
+          "reg_name": "V5",
+          "reg_desc": "vordere Axillarlinie auf Höhe von V4",
+          "reg_shape": "rectangle",
+          "reg_dX": 680,
+          "reg_dY": 360,
+          "reg_width": 100,
+          "reg_height": 60,
+          "desired_marker_id": 15
+        },
+        {
+          "reg_name": "V6",
+          "reg_desc": "mittlere Axillarlinie auf Höhe von V4",
+          "reg_shape": "rectangle",
+          "reg_dX": 730,
+          "reg_dY": 360,
+          "reg_width": 100,
+          "reg_height": 60,
+          "desired_marker_id": 16
+        }
+      ]
+    },
+    {
+      "align_id": 29,
+      "align_name": "right_forearm",
+      "rois": [
+        {
+          "reg_name": "Rot",
+          "reg_desc": "Rechter Arm",
+          "reg_shape": "rectangle",
+          "reg_dX": -20,
+          "reg_dY": 25,
+          "reg_width": 190,
+          "reg_height": 160,
+          "desired_marker_id": 21
+        }
+      ]
+    },
+    {
+      "align_id": 39,
+      "align_name": "left_forearm",
+      "rois": [
+        {
+          "reg_name": "Gelb",
+          "reg_desc": "Linker Arm",
+          "reg_shape": "rectangle",
+          "reg_dX": -50,
+          "reg_dY": 45,
+          "reg_width": 190,
+          "reg_height": 180,
+          "desired_marker_id": 31
+        }
+      ]
+    },
+    {
+      "align_id": 49,
+      "align_name": "left_foot",
+      "rois": [
+        {
+          "reg_name": "Schwarz",
+          "reg_desc": "Rechtes Bein ",
+          "reg_shape": "rectangle",
+          "reg_dX": -150,
+          "reg_dY": 160,
+          "reg_width": 230,
+          "reg_height": 500,
+          "desired_marker_id": 41
+        }
+      ]
+    },
+    {
+      "align_id": 59,
+      "align_name": "right_foot",
+      "rois": [
+        {
+          "reg_name": "Grün",
+          "reg_desc": "Linkes Bein",
+          "reg_shape": "rectangle",
+          "reg_dX": -280,
+          "reg_dY": 220,
+          "reg_width": 230,
+          "reg_height": 600,
+          "desired_marker_id": 51
+        }
+      ]
+    }
+  ]
+}

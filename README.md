@@ -3,6 +3,7 @@ Hybparc Aruco
 
 Hands on ECG-placement Training software for med students.
 
+-> To have the software save the annotated pictures, create a 'results' directory. (Care, per pass 1 pic meaning rn per analysis 10-15 pictures, uncompressed!)
 
 General requirements
 --------------------
