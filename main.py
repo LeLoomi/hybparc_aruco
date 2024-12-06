@@ -8,10 +8,13 @@ from processing_widget import ProcessingWidget
 from results_widget import ResultsWidget
 from qt_material import apply_stylesheet    # optional prettifier
 from json import load
+from time import sleep
 
 class MainWindow(QMainWindow):
     
     config_path = './mitz-ekg-config.json'
+    detector_passes = 7
+    warmup_passes = 8
     
     roi_statuses = dict()
     
@@ -80,9 +83,15 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(processing_widget)
         
         # ! DETECTION CALL
-        for i in range(10):  # we do n passes of analysis and aggregate the correct detections.
+        for i in range(self.detector_passes + self.warmup_passes):  # we do n passes of analysis and aggregate the correct detections.
+            sleep(0.1)
             ret0, in0 = self.stream0.read()
             ret1, in1 = self.stream1.read()
+            
+            # We take useless frames to warm up the autofocus
+            if i <= self.warmup_passes:
+                continue
+            
             rs1 = cv.resize(in1, in0.shape[:2][::-1])   # We resize the second image to fit the first just in case theres a mismatch
                                                         # TODO: Check which image is bigger and match that
             frame = cv.vconcat((in0, rs1))
@@ -100,6 +109,6 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    apply_stylesheet(app, theme='light_blue.xml')
+    #apply_stylesheet(app, theme='light_blue.xml')
     window.show()
     app.exec()
