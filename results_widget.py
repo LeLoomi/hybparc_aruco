@@ -63,6 +63,9 @@ class ResultsWidget(QWidget):
         treeWidget.setFixedHeight(600)
         treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
+        
+        eyeExplainer = QLabel("Elektroden mit Augensymbol konnten nicht gefunden werden. Überprüfe dann, ob Marker verdeckt sind.")
+        eyeExplainer.setFont(font)
 
         # short logic check we can reuse down the line
         allDetectionsCorrect = len(wrongMarkers) == 0
@@ -104,6 +107,8 @@ class ResultsWidget(QWidget):
         contentLayout.addStretch()
         contentLayout.addLayout(upperLayout)
         contentLayout.addWidget(treeWidget)
+        
+        contentLayout.addWidget(eyeExplainer)
 
         contentLayout.addWidget(buttonBox)
         contentLayout.addStretch()
