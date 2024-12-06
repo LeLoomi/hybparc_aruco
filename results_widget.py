@@ -64,7 +64,7 @@ class ResultsWidget(QWidget):
         treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
         
-        eyeExplainer = QLabel("Elektroden mit Augensymbol konnten nicht gefunden werden. Überprüfe dann,\nob Marker verdeckt sind oder in die nicht zur Kamera zeigen.")
+        eyeExplainer = QLabel("Elektroden mit Augensymbol konnten nicht gefunden werden. Überprüfe dann,\nob Marker verdeckt sind, oder nicht zur Kamera zeigen.")
         eyeFont = QFont(font)
         eyeFont.setPointSize(24)
         eyeExplainer.setFont(eyeFont)
