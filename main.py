@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
     
     config_path = './mitz-ekg-config.json'
     detector_passes = 7
-    warmup_passes = 8
+    warmup_passes = 11
     
     roi_statuses = dict()
     
@@ -30,6 +30,17 @@ class MainWindow(QMainWindow):
         with open(self.config_path, 'r') as f:
             self.config_data = load(f)
         
+        # Setup and warm up cameras
+        #! Adjustments are specific to the HP 960 4K in our physical setup
+        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
+        self.stream0.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
+        self.stream0.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
+        self.stream0.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
+        self.stream1 = cv.VideoCapture(index=4, apiPreference=cv.CAP_ANY)
+        self.stream1.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
+        self.stream1.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
+        self.stream1.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
+        
         # Window setup
         self.showMaximized()
         self.setWindowTitle('Hybparc EKG (Aruco)')
@@ -37,7 +48,7 @@ class MainWindow(QMainWindow):
 
     # Welcome screen on the 
     def show_welcome_widget(self):
-        print('[Hybparc] Diplaying login widget')
+        print('[Hybparc] Diplaying welcome widget')
         welcome_widget = WelcomeWidget()
         welcome_widget.start_pressed.connect(self.show_place_electrodes)
         self.setCentralWidget(welcome_widget)
@@ -63,16 +74,7 @@ class MainWindow(QMainWindow):
         place_electrodes_widget.electrodes_placed.connect(self.show_processing_widget)
         self.setCentralWidget(place_electrodes_widget)
         
-        # Setup and warm up cameras
-        #! Adjustments are specific to the HP 960 4K in our physical setup
-        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
-        self.stream0.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
-        self.stream0.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
-        self.stream0.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
-        self.stream1 = cv.VideoCapture(index=4, apiPreference=cv.CAP_ANY)
-        self.stream1.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
-        self.stream1.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
-        self.stream1.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
+        self.roi_statuses.clear()
     
     def show_processing_widget(self):
         print('[Hybparc] Displaying processing widget')
@@ -84,12 +86,13 @@ class MainWindow(QMainWindow):
         
         # ! DETECTION CALL
         for i in range(self.detector_passes + self.warmup_passes):  # we do n passes of analysis and aggregate the correct detections.
-            sleep(0.1)
+            sleep(0.05)
             ret0, in0 = self.stream0.read()
             ret1, in1 = self.stream1.read()
             
             # We take useless frames to warm up the autofocus
             if i <= self.warmup_passes:
+                sleep(0.01)
                 continue
             
             rs1 = cv.resize(in1, in0.shape[:2][::-1])   # We resize the second image to fit the first just in case theres a mismatch
@@ -103,8 +106,6 @@ class MainWindow(QMainWindow):
         results_widget = ResultsWidget(self.config_data, self.roi_statuses)
         results_widget.retry_triggered.connect(self.show_place_electrodes)
         self.setCentralWidget(results_widget)
-        self.stream0.release()
-        self.stream1.release()
 
 if __name__ == "__main__":
     app = QApplication([])
