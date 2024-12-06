@@ -60,7 +60,7 @@ class ResultsWidget(QWidget):
             treeWidget.insertTopLevelItem(treeWidget.topLevelItemCount(), item)
         
         treeWidget.expandAll()
-        treeWidget.setma(600)
+        treeWidget.setFixedHeight(600)
         treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
 
