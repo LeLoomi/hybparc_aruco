@@ -36,21 +36,23 @@ class ResultsWidget(QWidget):
         for roi in rois:
             # Create a item for each detected electrode
             item = QTreeWidgetItem()
-            item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
             
             wanted = roi['desired_marker_id']
             
-            # update icon to being correct in case the electrode is in the right spot
+            # update icon and text to being correct in case the electrode is in the right spot
             try:
                 if self.roi_statuses[roi['desired_marker_id']]['fulfilled']:
+                    item.setText(0, '{}'.format(roi['reg_name']))
                     item.setIcon(0, QIcon('./icons/check-solid.svg'))
                     print('[Hybparc] \U0001F44D {} was in the RIGHT spot!'.format(wanted))
                 else:
+                    item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
                     item.setIcon(0, QIcon('./icons/xmark-solid.svg'))
                     wrongMarkers.append(wanted)
                     print('[Hybparc] \U0001F44E {} was in the WRONG spot!'.format(wanted))
             except:
                 # if we end up here, not all desired markers were detected (no biggie, hopefully)
+                item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
                 item.setIcon(0, QIcon('./icons/eye-slash-solid.svg'))
                 wrongMarkers.append(wanted)
                 print('[Hybparc] \U0001F6A8 {} was NOT detected!'.format(wanted))
@@ -58,6 +60,7 @@ class ResultsWidget(QWidget):
             treeWidget.insertTopLevelItem(treeWidget.topLevelItemCount(), item)
         
         treeWidget.expandAll()
+        treeWidget.setma(600)
         treeWidget.setIconSize(QSize(30, 30))
         treeWidget.setFont(font)
 
