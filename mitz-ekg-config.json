@@ -91,8 +91,8 @@
           "reg_desc": "Linker Arm",
           "reg_shape": "rectangle",
           "reg_dX": -50,
-          "reg_dY": 45,
-          "reg_width": 190,
+          "reg_dY": 30,
+          "reg_width": 260,
           "reg_height": 180,
           "desired_marker_id": 31
         }
@@ -106,9 +106,9 @@
           "reg_name": "Schwarz",
           "reg_desc": "Rechtes Bein ",
           "reg_shape": "rectangle",
-          "reg_dX": -150,
+          "reg_dX": -175,
           "reg_dY": 160,
-          "reg_width": 230,
+          "reg_width": 300,
           "reg_height": 500,
           "desired_marker_id": 41
         }
@@ -122,10 +122,10 @@
           "reg_name": "Grün",
           "reg_desc": "Linkes Bein",
           "reg_shape": "rectangle",
-          "reg_dX": -280,
-          "reg_dY": 220,
-          "reg_width": 230,
-          "reg_height": 600,
+          "reg_dX": -255,
+          "reg_dY": 190,
+          "reg_width": 310,
+          "reg_height": 550,
           "desired_marker_id": 51
         }
       ]

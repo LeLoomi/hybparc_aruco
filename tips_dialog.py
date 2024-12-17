@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QDialogButtonBox, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QDialog
 from PyQt6.QtSvgWidgets import QSvgWidget
-from PyQt6.QtGui import QPixmap, QIcon
+from PyQt6.QtGui import QPixmap, QIcon, QFont
 from PyQt6.QtCore import *
 
 class TipsDialog(QDialog):
@@ -18,7 +18,7 @@ class TipsDialog(QDialog):
 
         font = self.mainTipLabel.font()
         font.setPointSize(24)
-        #self.mainTipLabel.setFont(font)
+        self.mainTipLabel.setFont(font)
 
         self.goBackButton = QPushButton(" Zurück")
         pixmapBackwardButton = QPixmap("./icons/angle-left-solid.svg")
