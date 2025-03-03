@@ -13,7 +13,7 @@ class PlaceElectrodesWidget(QWidget):
         pixmap = QPixmap('./icons/ecg.svg')
         iconLabel.setPixmap(pixmap)
 
-        textLabel = QLabel('Lege nun die Feldelektroden an. <br>Drücke <b>danach</b> auf Ok.')
+        textLabel = QLabel('Klebe nun die Elektroden an. <br>Drücke <b>danach</b> auf Ok. \nBitte achte darauf, dass die Marker an den Elektroden "zur Kamera hin schauen"!')
         textLabel.setTextFormat(Qt.TextFormat.RichText)
 
         font = textLabel.font()
