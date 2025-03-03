@@ -19,13 +19,13 @@ class TipsDialog(QDialog):
 
         self.mainTipLabel = QLabel()
         font = self.mainTipLabel.font()
-        font.setPointSize(24)
+        font.setPointSize(28)
         self.mainTipLabel.setFont(font)
 
         self.goBackButton = QPushButton(" Zurück")
         pixmapBackwardButton = QPixmap("./graphics/angle-left-solid.svg")
         self.goBackButton.setIcon(QIcon(pixmapBackwardButton))
-        self.goBackButton.setIconSize(QSize(20, 20))
+        self.goBackButton.setIconSize(QSize(26, 26))
         self.goBackButton.setFont(font)
         self.goBackButton.clicked.connect(self.backward_btn_clicked)
 
@@ -36,7 +36,7 @@ class TipsDialog(QDialog):
         self.goForwardButton = QPushButton("Weiter ")
         pixmapForwardButton = QPixmap("./graphics/angle-right-solid.svg")
         self.goForwardButton.setIcon(QIcon(pixmapForwardButton))
-        self.goForwardButton.setIconSize(QSize(20, 20))
+        self.goForwardButton.setIconSize(QSize(26, 26))
         self.goForwardButton.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
         self.goForwardButton.setFont(font)
         self.goForwardButton.clicked.connect(self.forward_btn_clicked)
@@ -46,7 +46,8 @@ class TipsDialog(QDialog):
         buttonBox.addButton(self.goForwardButton, QDialogButtonBox.ButtonRole.ActionRole)
         buttonBox.setMinimumHeight(100)
 
-        upperLayout = QHBoxLayout()
+        upperLayout = QVBoxLayout()
+        upperLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         upperLayout.addStretch()
         upperLayout.addWidget(self.svgWidget)
         upperLayout.addWidget(self.pngWidget)
@@ -54,9 +55,11 @@ class TipsDialog(QDialog):
         upperLayout.addStretch()
 
         buttonLayout = QHBoxLayout()
+        buttonLayout.addSpacing(60)
         buttonLayout.addWidget(self.goBackButton)
         buttonLayout.addStretch()
         buttonLayout.addWidget(buttonBox)
+        buttonLayout.addSpacing(60)
 
         self.mainLayout = QVBoxLayout()
         self.mainLayout.addSpacing(70)
@@ -65,7 +68,7 @@ class TipsDialog(QDialog):
         self.mainLayout.addLayout(buttonLayout)
 
         self.setLayout(self.mainLayout)
-        self.setFixedSize(1600, 500)
+        self.setFixedSize(1900, 850)
         
         self.load_tip(self.current_tip)
 
@@ -84,7 +87,7 @@ class TipsDialog(QDialog):
         if index == 0:
             self.svgWidget.setHidden(False)
             self.svgWidget.load("./graphics/tip_distance.svg")
-            self.svgWidget.setFixedSize(QSize(750, 244))    #this svgs aspect = 308:100
+            self.svgWidget.setFixedSize(QSize(900, 292))    #this svgs aspect = 308:100
             self.mainTipLabel.setText("Die Elektroden sollten in der richtigen Reihenfolge angebracht <br> und nicht zu weit voneinander entfernt sein!")
             self.goBackButton.setEnabled(False)
             self.goForwardButton.setEnabled(True)
@@ -93,7 +96,7 @@ class TipsDialog(QDialog):
             self.pngWidget.setHidden(False)
             self.pngWidget.setPixmap(QPixmap("./graphics/brustwandableitungen.png")) #this pngs aspect = 251:100
             self.pngWidget.setScaledContents(True)
-            self.pngWidget.setFixedSize(QSize(750, 299))
-            self.mainTipLabel.setText("Stelle sicher, dass die Elektroden komplett aufliegen.")
+            self.pngWidget.setFixedSize(QSize(1650, 657))
+            self.mainTipLabel.setText("")
             self.goBackButton.setEnabled(True)
             self.goForwardButton.setEnabled(False)
