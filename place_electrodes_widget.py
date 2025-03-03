@@ -10,7 +10,7 @@ class PlaceElectrodesWidget(QWidget):
         
         # Setup ui
         iconLabel = QLabel()
-        pixmap = QPixmap('./icons/ecg.svg')
+        pixmap = QPixmap('./graphics/ecg.svg')
         iconLabel.setPixmap(pixmap)
 
         textLabel = QLabel('Klebe nun die Elektroden an. <br>Drücke <b>danach</b> auf Ok. \nBitte achte darauf, dass die Marker an den Elektroden "zur Kamera hin schauen"!')

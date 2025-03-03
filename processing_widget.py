@@ -13,7 +13,7 @@ class ProcessingWidget(QWidget):
     
         # Setup ui
         self.iconLabel = QLabel()
-        pixmap = QPixmap('./icons/correct.svg')
+        pixmap = QPixmap('./graphics/correct.svg')
         scaledPixmap = pixmap.scaled(QSize(250, 200))
         self.iconLabel.setPixmap(scaledPixmap)
         self.iconLabel.setVisible(False)

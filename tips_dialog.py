@@ -14,10 +14,8 @@ class TipsDialog(QDialog):
         self.firstWidgetDisplayed = False
 
         self.svgWidget = QSvgWidget()
-        self.svgWidget.setFixedSize(QSize(400, 150))
 
         self.pngWidget = QLabel()
-        self.pngWidget.setFixedSize(QSize(400, 150))
 
         self.mainTipLabel = QLabel()
         font = self.mainTipLabel.font()
@@ -25,7 +23,7 @@ class TipsDialog(QDialog):
         self.mainTipLabel.setFont(font)
 
         self.goBackButton = QPushButton(" Zurück")
-        pixmapBackwardButton = QPixmap("./icons/angle-left-solid.svg")
+        pixmapBackwardButton = QPixmap("./graphics/angle-left-solid.svg")
         self.goBackButton.setIcon(QIcon(pixmapBackwardButton))
         self.goBackButton.setIconSize(QSize(20, 20))
         self.goBackButton.setFont(font)
@@ -36,7 +34,7 @@ class TipsDialog(QDialog):
         okButton.clicked.connect(self.close)
 
         self.goForwardButton = QPushButton("Weiter ")
-        pixmapForwardButton = QPixmap("./icons/angle-right-solid.svg")
+        pixmapForwardButton = QPixmap("./graphics/angle-right-solid.svg")
         self.goForwardButton.setIcon(QIcon(pixmapForwardButton))
         self.goForwardButton.setIconSize(QSize(20, 20))
         self.goForwardButton.setLayoutDirection(Qt.LayoutDirection.RightToLeft)
@@ -61,9 +59,9 @@ class TipsDialog(QDialog):
         buttonLayout.addWidget(buttonBox)
 
         self.mainLayout = QVBoxLayout()
-        self.mainLayout.addSpacing(100)
+        self.mainLayout.addSpacing(70)
         self.mainLayout.addLayout(upperLayout)
-        self.mainLayout.addSpacing(100)
+        self.mainLayout.addSpacing(70)
         self.mainLayout.addLayout(buttonLayout)
 
         self.setLayout(self.mainLayout)
@@ -79,18 +77,23 @@ class TipsDialog(QDialog):
 
     def load_tip(self, index):
         self.current_tip = index
+        self.svgWidget.setHidden(True)
+        self.pngWidget.setHidden(True)
         
         # prod is py3.9 so we don't have switch statements...
         if index == 0:
-            self.svgWidget.load("./icons/tip_placement.svg")
-            self.svgWidget.setFixedSize(QSize(750, 140))
+            self.svgWidget.setHidden(False)
+            self.svgWidget.load("./graphics/tip_distance.svg")
+            self.svgWidget.setFixedSize(QSize(750, 244))    #this svgs aspect = 308:100
             self.mainTipLabel.setText("Die Elektroden sollten in der richtigen Reihenfolge angebracht <br> und nicht zu weit voneinander entfernt sein!")
             self.goBackButton.setEnabled(False)
             self.goForwardButton.setEnabled(True)
             
         elif index == 1:
-            self.svgWidget.load("./icons/tip_distance.svg")
-            self.svgWidget.setFixedSize(QSize(450, 140))
+            self.pngWidget.setHidden(False)
+            self.pngWidget.setPixmap(QPixmap("./graphics/brustwandableitungen.png")) #this pngs aspect = 251:100
+            self.pngWidget.setScaledContents(True)
+            self.pngWidget.setFixedSize(QSize(750, 299))
             self.mainTipLabel.setText("Stelle sicher, dass die Elektroden komplett aufliegen.")
             self.goBackButton.setEnabled(True)
             self.goForwardButton.setEnabled(False)

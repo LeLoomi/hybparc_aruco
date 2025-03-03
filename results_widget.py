@@ -43,17 +43,17 @@ class ResultsWidget(QWidget):
             try:
                 if self.roi_statuses[roi['desired_marker_id']]['fulfilled']:
                     item.setText(0, '{}'.format(roi['reg_name']))
-                    item.setIcon(0, QIcon('./icons/check-solid.svg'))
+                    item.setIcon(0, QIcon('./graphics/check-solid.svg'))
                     print('[Hybparc] \U0001F44D {} was in the RIGHT spot!'.format(wanted))
                 else:
                     item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
-                    item.setIcon(0, QIcon('./icons/xmark-solid.svg'))
+                    item.setIcon(0, QIcon('./graphics/xmark-solid.svg'))
                     wrongMarkers.append(wanted)
                     print('[Hybparc] \U0001F44E {} was in the WRONG spot!'.format(wanted))
             except:
                 # if we end up here, not all desired markers were detected (no biggie, hopefully)
                 item.setText(0, '{} ({})'.format(roi['reg_name'], roi['reg_desc']))
-                item.setIcon(0, QIcon('./icons/eye-slash-solid.svg'))
+                item.setIcon(0, QIcon('./graphics/eye-slash-solid.svg'))
                 wrongMarkers.append(wanted)
                 print('[Hybparc] \U0001F6A8 {} was NOT detected!'.format(wanted))
 
@@ -85,7 +85,7 @@ class ResultsWidget(QWidget):
 
         upperLayout = QHBoxLayout()
         iconLabel = QLabel()
-        pixmap = QPixmap('./icons/check-solid.svg' if allDetectionsCorrect else './icons/xmark-solid.svg') 
+        pixmap = QPixmap('./graphics/check-solid.svg' if allDetectionsCorrect else './graphics/xmark-solid.svg') 
         scaledPixmap = pixmap.scaledToHeight(100)
 
         iconLabel.setPixmap(scaledPixmap)
