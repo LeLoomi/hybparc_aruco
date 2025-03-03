@@ -5,17 +5,21 @@ from PyQt6.QtCore import *
 
 class TipsDialog(QDialog):
     
+    current_tip = 0
+    
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Tipps")
         
-        self.svgWidget = QSvgWidget()
         self.firstWidgetDisplayed = False
-        
+
+        self.svgWidget = QSvgWidget()
         self.svgWidget.setFixedSize(QSize(400, 150))
 
-        self.mainTipLabel = QLabel()
+        self.pngWidget = QLabel()
+        self.pngWidget.setFixedSize(QSize(400, 150))
 
+        self.mainTipLabel = QLabel()
         font = self.mainTipLabel.font()
         font.setPointSize(24)
         self.mainTipLabel.setFont(font)
@@ -47,6 +51,7 @@ class TipsDialog(QDialog):
         upperLayout = QHBoxLayout()
         upperLayout.addStretch()
         upperLayout.addWidget(self.svgWidget)
+        upperLayout.addWidget(self.pngWidget)
         upperLayout.addWidget(self.mainTipLabel)
         upperLayout.addStretch()
 
@@ -64,23 +69,28 @@ class TipsDialog(QDialog):
         self.setLayout(self.mainLayout)
         self.setFixedSize(1600, 500)
         
-        self.navigateThroughElements()
+        self.load_tip(self.current_tip)
 
     def forward_btn_clicked(self):
-        self.firstWidgetDisplayed = True
-        self.navigateThroughElements()
+        self.load_tip(self.current_tip + 1)
     
     def backward_btn_clicked(self):
-        self.firstWidgetDisplayed = False
-        self.navigateThroughElements()
+        self.load_tip(self.current_tip - 1)
 
-    def navigateThroughElements(self):
-        tips = [ "Die Elektroden sollten in der richtigen Reihenfolge angebracht <br> und nicht zu weit voneinander entfernt sein!",
-            "Stelle sicher, dass die Elektroden komplett aufliegen." ]
+    def load_tip(self, index):
+        self.current_tip = index
         
-        self.svgWidget.load("./icons/tip_placement.svg" if self.firstWidgetDisplayed else "./icons/tip_distance.svg")
-        self.svgWidget.setFixedSize(QSize(750 if self.firstWidgetDisplayed else 450, 140))
-        
-        self.mainTipLabel.setText(tips[0] if not self.firstWidgetDisplayed else tips[1])
-        self.goBackButton.setEnabled(self.firstWidgetDisplayed)
-        self.goForwardButton.setDisabled(self.firstWidgetDisplayed)
+        # prod is py3.9 so we don't have switch statements...
+        if index == 0:
+            self.svgWidget.load("./icons/tip_placement.svg")
+            self.svgWidget.setFixedSize(QSize(750, 140))
+            self.mainTipLabel.setText("Die Elektroden sollten in der richtigen Reihenfolge angebracht <br> und nicht zu weit voneinander entfernt sein!")
+            self.goBackButton.setEnabled(False)
+            self.goForwardButton.setEnabled(True)
+            
+        elif index == 1:
+            self.svgWidget.load("./icons/tip_distance.svg")
+            self.svgWidget.setFixedSize(QSize(450, 140))
+            self.mainTipLabel.setText("Stelle sicher, dass die Elektroden komplett aufliegen.")
+            self.goBackButton.setEnabled(True)
+            self.goForwardButton.setEnabled(False)
