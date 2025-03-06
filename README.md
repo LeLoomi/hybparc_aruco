@@ -30,7 +30,8 @@ stream.set(cv.CV_CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         stream.set(cv.CV_CAP_PROP_FRAME_WIDTH, 3840)
         stream.set(cv.CV_CAP_PROP_FRAME_HEIGHT, 2160)
 ````
-To check available formats, resolutions and capture indices run `v4l2-ctl -d /dev/videoX --list-formats-ext`
+To check available capture indices/devices run `v4l2-ctl --list-devices`
+To check available formats, resolutions run `v4l2-ctl -d /dev/videoX --list-formats-ext`
 
 <u>OpenCV and Python version:</u><br>
 On MacOS and Windows PyQt6 supports Python 3.12. On Linux however, only Python 3.9 is currently<sup>Dec '24</sup> supported. You will have to downgrade your environment to Python 3.9 or you will be unable to install PyQt6.
