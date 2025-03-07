@@ -33,7 +33,7 @@ filecolor=blue]{hyperref}
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\emoji}[1]{
     \begingroup\normalfont
-    \includegraphics[height=0.8em]{#1.png}
+    \includegraphics[height=0.8em]{emojis/#1.png}
     \endgroup
 }
 
@@ -75,13 +75,15 @@ filecolor=blue]{hyperref}
 Zur idealen Verwendung des Projektes wird benötigt
 \begin{itemize}
     \item Eine medizinische Übungspuppe in Lebensgröße
-    \item Ein EKG-Gerät mit 10 Elektroden (defekt ausreichend) + Klebepads
+    \item Ein EKG-Gerät mit 10 Elektroden + Klebepads
     \item Zwei USB-Kameras mit hoher Auflösung
-    \item Ein PC zum Ausführen der Projektsoftware (idealerweise Ubuntu Linux)
+    \item Ein PC zum Ausführen der Projektsoftware
+    \item Ein Drucker, Klebeband und ein Klebestift
 \end{itemize}
 
 \subsection{USB-Kameras}
-Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen; es ist jedoch nicht empfohlen.
+Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen.
+
 
 \subsection{PC}
 \begin{formal}
@@ -109,26 +111,34 @@ Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann
 
 
 \section{Projekinstallation, Konfiguration}
+\begin{formal}
+    Dieser Teil sollte mit der IT-Abteilung besprochen werden.\emoji{technologist}\emoji{warning}
+\end{formal}
 Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub} verfügbar.
 
 Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
 Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potentiell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-"Reihenfolge" der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle.
 
-\subsection{Andere Auflösung}
+\subsection{Andere Auflösung \includegraphics[height=0.75em]{emojis/eyes.png}}
 \label{sec:custom-resolution}
 Bei anderen Auflösungen müssen im Code unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion die entsprechenden Parameter angepasst werden:
 \begin{figure}[h]
     \centering
-    \includegraphics[width=10.5cm]{stream_properties.png}
+    \includegraphics[width=10.5cm]{resolution.png}
 \end{figure}
 
-\subsection{Kein MJPEG}
+\subsection{Kein MJPEG \includegraphics[height=0.75em]{emojis/open-mouth.png}}
 \label{ssec:the-mjpeg-problem}
-Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. 
+Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. Der entsprechende Codec muss im \href{https://fourcc.org/codecs.php}{FourCC Format} unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion angepasst werden:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=10.5cm]{fourcc.png}
+\end{figure}
 
 
-\section{\includegraphics[height=0.65em]{warning.png} Troubleshooting \includegraphics[height=0.7em]{warning.png}}
+
+\section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}
 \label{sec:troubleshooting}
 
 Um das Projekt über das Terminal zu starten, oder um Änderungen am conda environment vorzunehmen, muss das environment bei jedem Terminal neustart wieder aktiviert werden (\code{conda activate hybparc}).
