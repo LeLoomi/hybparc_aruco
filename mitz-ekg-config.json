@@ -8,8 +8,8 @@
           "reg_name": "V1",
           "reg_desc": "4. ICR rechts parasternal",
           "reg_shape": "rectangle",
-          "reg_dX": -235,
-          "reg_dY": 120,
+          "reg_dX": -135,
+          "reg_dY": 165,
           "reg_width": 200,
           "reg_height": 90,
           "desired_marker_id": 11
@@ -18,8 +18,8 @@
           "reg_name": "V2",
           "reg_desc": "4. ICR links parasternal",
           "reg_shape": "rectangle",
-          "reg_dX": -20,
-          "reg_dY": 90,
+          "reg_dX": 80,
+          "reg_dY": 135,
           "reg_width": 200,
           "reg_height": 90,
           "desired_marker_id": 12
@@ -28,8 +28,8 @@
           "reg_name": "V3",
           "reg_desc": "zwischen V2 und V4 auf der 5. Rippe",
           "reg_shape": "rectangle",
-          "reg_dX": 110,
-          "reg_dY": 190,
+          "reg_dX": 175,
+          "reg_dY": 235,
           "reg_width": 130,
           "reg_height": 90,
           "desired_marker_id": 13
@@ -38,8 +38,8 @@
           "reg_name": "V4",
           "reg_desc": "5. ICR links Medioclavicularlinie",
           "reg_shape": "rectangle",
-          "reg_dX": 230,
-          "reg_dY": 320,
+          "reg_dX": 280,
+          "reg_dY": 365,
           "reg_width": 100,
           "reg_height": 90,
           "desired_marker_id": 14
@@ -48,8 +48,8 @@
           "reg_name": "V5",
           "reg_desc": "vordere Axillarlinie auf Höhe von V4",
           "reg_shape": "rectangle",
-          "reg_dX": 550,
-          "reg_dY": 350,
+          "reg_dX": 625,
+          "reg_dY": 405,
           "reg_width": 150,
           "reg_height": 110,
           "desired_marker_id": 15
@@ -58,8 +58,8 @@
           "reg_name": "V6",
           "reg_desc": "mittlere Axillarlinie auf Höhe von V4",
           "reg_shape": "rectangle",
-          "reg_dX": 650,
-          "reg_dY": 350,
+          "reg_dX": 725,
+          "reg_dY": 405,
           "reg_width": 150,
           "reg_height": 110,
           "desired_marker_id": 16
@@ -74,9 +74,9 @@
           "reg_name": "Rot",
           "reg_desc": "Rechter Arm",
           "reg_shape": "rectangle",
-          "reg_dX": -40,
-          "reg_dY": 25,
-          "reg_width": 190,
+          "reg_dX": 60,
+          "reg_dY": 105,
+          "reg_width": 200,
           "reg_height": 160,
           "desired_marker_id": 21
         }
@@ -90,8 +90,8 @@
           "reg_name": "Gelb",
           "reg_desc": "Linker Arm",
           "reg_shape": "rectangle",
-          "reg_dX": -80,
-          "reg_dY": 30,
+          "reg_dX": 65,
+          "reg_dY": 135,
           "reg_width": 290,
           "reg_height": 210,
           "desired_marker_id": 31
@@ -106,10 +106,10 @@
           "reg_name": "Schwarz",
           "reg_desc": "Rechtes Bein ",
           "reg_shape": "rectangle",
-          "reg_dX": -175,
-          "reg_dY": 160,
-          "reg_width": 300,
-          "reg_height": 500,
+          "reg_dX": 85,
+          "reg_dY": 330,
+          "reg_width": 375,
+          "reg_height": 550,
           "desired_marker_id": 41
         }
       ]
@@ -122,9 +122,9 @@
           "reg_name": "Grün",
           "reg_desc": "Linkes Bein",
           "reg_shape": "rectangle",
-          "reg_dX": -255,
-          "reg_dY": 190,
-          "reg_width": 310,
+          "reg_dX": 25,
+          "reg_dY": 320,
+          "reg_width": 360,
           "reg_height": 550,
           "desired_marker_id": 51
         }
