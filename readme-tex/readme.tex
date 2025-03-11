@@ -70,7 +70,7 @@ filecolor=blue]{hyperref}
     Für substantielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
 \end{abstract}
 
-\section{Materielle, Technische Voraussetzungen}
+\section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
 \label{sec:prerequisites}
 Zur idealen Verwendung des Projektes wird benötigt
 \begin{itemize}
@@ -87,7 +87,7 @@ Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, em
 
 \subsection{PC}
 \begin{formal}
-    Dieser Teil sollte mit der IT-Abteilung besprochen werden.\emoji{technologist}\emoji{warning}
+    Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{formal}
 Der PC benötigt mind. zwei freie USB-Ports (USB 2.0+). Das Projekt wurde mit Zielplattform Ubuntu Linux (\warn{Version abc-xyz}) entwickelt.
 
@@ -110,18 +110,21 @@ Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \en
 Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann heruntergeladen und konfiguriert werden.
 
 
-\section{Projekinstallation, Konfiguration}
+\section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
+\label{sec:installation-configuration}
 \begin{formal}
-    Dieser Teil sollte mit der IT-Abteilung besprochen werden.\emoji{technologist}\emoji{warning}
+    Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{formal}
 Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub} verfügbar.
 
-Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
+Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny{TM}} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
+\subsection{Kamera-IDs}
+\label{ssec:cam-indices}
 Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potentiell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-"Reihenfolge" der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle.
 
-\subsection{Andere Auflösung \includegraphics[height=0.75em]{emojis/eyes.png}}
-\label{sec:custom-resolution}
+\subsection{Andere Auflösung}
+\label{ssec:custom-resolution}
 Bei anderen Auflösungen müssen im Code unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion die entsprechenden Parameter angepasst werden:
 \begin{figure}[h]
     \centering
@@ -137,7 +140,6 @@ Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X kön
 \end{figure}
 
 
-
 \section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}
 \label{sec:troubleshooting}
 
@@ -145,5 +147,14 @@ Um das Projekt über das Terminal zu starten, oder um Änderungen am conda envir
 
 \paragraph{OpenCV Package Type}
 Das Guide empfiehlt \code{opencv-contrib-python} zu installieren. Dies ist eine Ubuntu Linux spezifische Empfehlung. Sollte das Projekt unter MacOS und Windows verwendet werden empfiehlt sich das Package \code{opencv-python}.
+
+\paragraph{Kontrollbilder}
+Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert werden. Hierfür muss im Projektordner einfach ein Ordner \enquote{results} erstellt werden.
+\\
+\footnotesize{\includegraphics[height=0.6em]{emojis/warning.png} Nach Kontrolle Ordner löschen, die Bilder sind unkomprimiert und damit sehr groß! \includegraphics[height=0.6em]{emojis/warning.png}}
+
+\section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
+\label{sec:known-issues}
+\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. \scriptsize{(Preventative fix ausstehend)}
 
 \end{document}
