@@ -15,7 +15,7 @@
 \fancyhead{} % clear all header fields
 \fancyhead[R]{Readme HybParc EKG-Einheit}
 \fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\small{Readme version \today }}
+\fancyfoot[L]{\small{\today, Eliah Lohr }}
 \fancyfoot[R]{\thepage}
 
 \usepackage{graphicx}
@@ -67,7 +67,7 @@ filecolor=blue]{hyperref}
 
 \begin{abstract}
     Dieses Readme deckt die Inbetriebnahme der am Medizinisches Interprofessionellen Trainingszentrum (MITZ) des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
-    Für substantielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
+    Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
 \end{abstract}
 
 \section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
@@ -82,7 +82,7 @@ Zur idealen Verwendung des Projektes wird benötigt
 \end{itemize}
 
 \subsection{USB-Kameras}
-Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen.
+Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das Verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen.
 
 
 \subsection{PC}
@@ -121,7 +121,7 @@ Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160
 
 \subsection{Kamera-IDs}
 \label{ssec:cam-indices}
-Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potentiell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-"Reihenfolge" der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle.
+Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potenziell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-"Reihenfolge" der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle.
 
 \subsection{Andere Auflösung}
 \label{ssec:custom-resolution}
