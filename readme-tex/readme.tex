@@ -30,11 +30,11 @@ contents={%
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,colorlinks,
 linkcolor=purple,
 citecolor=purple,
-urlcolor=blue,
+urlcolor=MidnightBlue,
 filecolor=blue]{hyperref}
 \usepackage[capitalise]{cleveref}
 
@@ -105,7 +105,7 @@ Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, em
 \end{formal}
 Der PC benötigt mind. zwei freie USB-Ports (USB 2.0+). Das Projekt wurde mit Zielplattform Ubuntu Linux (\warn{Version abc-xyz}) entwickelt.
 
-Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge} bereitgestellte Variante (\enquote{miniconda}) genutzt werden. Das Projekt wurde mit Conda-Forge Version \warn{abc-xyz} entwickelt, sollte aber auch mit anderen Versionen funktionieren.
+Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge\emoji{link}} bereitgestellte Variante (\enquote{miniconda}) genutzt werden. Das Projekt wurde mit Conda-Forge Version \warn{abc-xyz} entwickelt, sollte aber auch mit anderen Versionen funktionieren.
 
 Nachdem conda installiert wurde, kann es im Terminal mit dem Befehl \code{conda} verwendet werden. Conda stellt isolierte Laufzeitumgebungen zur Verfügung und muss noch über das Terminal konfiguriert werden:
 \begin{enumerate}
@@ -129,7 +129,7 @@ Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann
 \begin{formal}
     Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{formal}
-Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub} verfügbar.
+Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar.
 
 Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
@@ -147,7 +147,7 @@ Bei anderen Auflösungen müssen im Code unter \code{/hybparc\_aruco/main.py} fa
 
 \subsection{Kein MJPEG \includegraphics[height=0.75em]{emojis/open-mouth.png}}
 \label{ssec:the-mjpeg-problem}
-Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. Der entsprechende Codec muss im \href{https://fourcc.org/codecs.php}{FourCC Format} unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion angepasst werden:
+Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. Der entsprechende Codec muss im \href{https://fourcc.org/codecs.php}{FourCC Format\emoji{link}} unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion angepasst werden:
 \begin{figure}[h]
     \centering
     \includegraphics[width=10.5cm]{fourcc.png}
