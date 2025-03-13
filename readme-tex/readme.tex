@@ -32,8 +32,8 @@ contents={%
 
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,colorlinks,
-linkcolor=purple,
-citecolor=purple,
+linkcolor=MidnightBlue,
+citecolor=MidnightBlue,
 urlcolor=MidnightBlue,
 filecolor=blue]{hyperref}
 \usepackage[capitalise]{cleveref}
@@ -54,18 +54,18 @@ filecolor=blue]{hyperref}
 \usepackage{framed}
 
 % environment derived from framed.sty: see leftbar environment definition
-\definecolor{coolpurple}{rgb}{0.36,0.42,0.74}
-\definecolor{formalshade}{rgb}{0.91,0.93,1}
+\definecolor{formalpipe}{HTML}{8cc020}
+\definecolor{formalshade}{HTML}{f3fdde}
 
 \newenvironment{formal}{%
     \def\FrameCommand{%
     \hspace{1pt}%
-    {\color{coolpurple}\vrule width 2pt}%
-    {\color{formalshade}\vrule width 4pt}%
+    {\color{formalpipe}\vrule width 0.7mm}%
+    {\color{formalshade}\vrule width 1.5mm}%
     \colorbox{formalshade}%
     }%
     \MakeFramed{\advance\hsize-\width\FrameRestore}%
-    \noindent\hspace{-4.55pt}% disable indenting first paragraph
+    \noindent% disable indenting first paragraph
     \begin{adjustwidth}{}{7pt}%
     \vspace{2pt}\vspace{2pt}%
 }
