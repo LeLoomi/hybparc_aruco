@@ -3,6 +3,8 @@
 \usepackage[a4paper, top=45mm, headsep=15mm, left=30mm, right=20mm, bottom=40mm]{geometry}
 \usepackage{background}
 
+\usepackage{float}
+
 \pagestyle{empty}
 
 \backgroundsetup{
@@ -58,6 +60,7 @@ filecolor=blue]{hyperref}
 \definecolor{formalshade}{HTML}{f3fdde}
 
 \newenvironment{formal}{%
+\vspace*{-4mm}
     \def\FrameCommand{%
     \hspace{1pt}%
     {\color{formalpipe}\vrule width 0.7mm}%
@@ -96,16 +99,18 @@ Zur idealen Verwendung des Projektes wird benötigt
 \end{itemize}
 
 \subsection{USB-Kameras}
+\label{ssec:cameras}
 Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das Verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen.
 
 
 \subsection{PC}
+\label{ssec:pc-reqs}
 \begin{formal}
     Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{formal}
 Der PC benötigt mind. zwei freie USB-Ports (USB 2.0+). Das Projekt wurde mit Zielplattform Ubuntu Linux (\warn{Version abc-xyz}) entwickelt.
 
-Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge\emoji{link}} bereitgestellte Variante (\enquote{miniconda}) genutzt werden. Das Projekt wurde mit Conda-Forge Version \warn{abc-xyz} entwickelt, sollte aber auch mit anderen Versionen funktionieren.
+Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge\emoji{link}} bereitgestellte Variante (\enquote{miniconda}) genutzt werden. Das Projekt wurde mit Conda-Forge Version \warn{abc-xyz} entwickelt, sollte aber auch mit anderen Versionen funktionieren. Sollte miniconda direkt in die homedirectory des Benutzeraccounts installiert werden, können der bereitgestellte Desktop-shortcut und das dazugehörige shell script direkt verwendet werden.
 
 Nachdem conda installiert wurde, kann es im Terminal mit dem Befehl \code{conda} verwendet werden. Conda stellt isolierte Laufzeitumgebungen zur Verfügung und muss noch über das Terminal konfiguriert werden:
 \begin{enumerate}
@@ -121,7 +126,19 @@ Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \en
     \item PyQt6 installieren: \code{pip install pyqt6}
 \end{enumerate}
 
-Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann heruntergeladen und konfiguriert werden.
+Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann heruntergeladen und konfiguriert werden (siehe \ref{sec:installation-configuration}).
+
+\subsection{Referenzmarker}
+\label{ssec:ref-markers}
+\warn{3D-printed approach pending}\\
+Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt. Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m$^2$, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten.
+\subsubsection{Anfertigung}
+\label{sssec:marker-manufacturing}
+to be filled
+
+\subsubsection{Platzierung}
+\label{sssec:marker-placement}
+to be filled
 
 
 \section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
@@ -129,7 +146,7 @@ Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann
 \begin{formal}
     Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{formal}
-Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar.
+Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\~/repos/hybparc\_aruco/}).
 
 Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
@@ -140,18 +157,39 @@ Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l
 \subsection{Andere Auflösung}
 \label{ssec:custom-resolution}
 Bei anderen Auflösungen müssen im Code unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion die entsprechenden Parameter angepasst werden:
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=10.5cm]{resolution.png}
 \end{figure}
 
 \subsection{Kein MJPEG \includegraphics[height=0.75em]{emojis/open-mouth.png}}
 \label{ssec:the-mjpeg-problem}
-Die unterstützten Formate einer Kamera bzw. Ihres Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. Der entsprechende Codec muss im \href{https://fourcc.org/codecs.php}{FourCC Format\emoji{link}} unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion angepasst werden:
-\begin{figure}[h]
+Das Projekt wurde ausschließlich mit MJPEG getestet. Bei unbedingtem Bedarf kann jedoch probiert werden, das Format umzustellen. Die unterstützten Formate einer Kamera bzw. des Interfaces mit der Nr. X können via \code{v4l2-ctl -d /dev/videoX --list-formats-ext} ausgelesen werden. Der entsprechende Codec muss im \href{https://fourcc.org/codecs.php}{FourCC Format\emoji{link}} unter \code{/hybparc\_aruco/main.py} fast zu Beginn der \code{\_\_init\_\_} Funktion angepasst werden:
+\begin{figure}[H]
     \centering
     \includegraphics[width=10.5cm]{fourcc.png}
 \end{figure}
+
+\subsection{Desktop shortcut \includegraphics[height=0.75em]{emojis/sparkles.png}}
+\label{ssec:desktop-drip}
+Um Nutzenden einfachen Zugang zu ermöglichen, empfiehlt sich die Einrichtung eines Desktop-shortcuts. Da das Projekt in einem Conda-environment läuft sind dazu mehrere Schritte empfohlen. Empfohlenerweise liegt auf dem Desktop eine Verknüpfung \code{starte-ekg.desktop} mit dem Inhalt
+\begin{verbatim}
+    [Desktop Entry]
+    Name=Starte EKG
+    Comment=MITZ Selbstlerneinheit
+    Exec=/home/selbstlern/repos/starte-ekg.sh
+    Terminal=false
+    Type=Application
+\end{verbatim}
+{\footnotesize(das Projekt liegt hier in der homedirectory des Nutzers \enquote{selbstlern}, im Ordner \code{/repos/})}\\
+Die durch den shortcut aufgerufene \code{starte-ekg.sh} enthält lediglich
+\begin{verbatim}
+    cd ~/repos/hybparc_aruco
+    ~/miniforge3/envs/hybparc/bin/python3 main.py
+\end{verbatim}
+wobei Zeile 1 den Ausführungsort auf den Projektordner setzt, und Zeile 2 zum ausführen der \code{main.py} den direkten Pfad der python-executable nutzt, die in das hybparc conda-environment installiert ist. So kann erreicht werden, dass Nutzende ausschließlich das user interface sehen.
+
+Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(cd)} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten.
 
 
 \section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}

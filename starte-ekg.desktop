@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Starte EKG
+Comment=MITZ Selbstlerneinheit
+Exec=/home/selbstlern/repos/starte-ekg.sh
+Terminal=false
+Type=Application
