@@ -1,7 +1,24 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper, 10pt]{article}
 
-\usepackage{cmbright}
+\usepackage[a4paper, top=45mm, headsep=15mm, left=30mm, right=20mm, bottom=40mm]{geometry}
+\usepackage{background}
+
+\pagestyle{empty}
+
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=1.0,
+angle=0,
+contents={%
+    \includegraphics[width=\paperwidth]{header+footer.png}
+    }%
+}
+
+\usepackage[default]{opensans}
 \usepackage[T1]{fontenc}
+
+\usepackage{titling}
 
 \usepackage{url}
 \usepackage[all]{nowidow}
@@ -9,14 +26,6 @@
 \usepackage[german]{babel}
 \usepackage{csquotes}
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-\fancyhead{} % clear all header fields
-\fancyhead[R]{Readme HybParc EKG-Einheit}
-\fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\small{\today, Eliah Lohr }}
-\fancyfoot[R]{\thepage}
 
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
@@ -37,6 +46,7 @@ filecolor=blue]{hyperref}
     \endgroup
 }
 
+% --- Tooltip box start ---
 % for adjustwidth environment
 \usepackage[strict]{changepage}
 
@@ -62,13 +72,17 @@ filecolor=blue]{hyperref}
 {%
     \vspace{2pt}\end{adjustwidth}\endMakeFramed%
 }
+% --- Tooltip box end ---
+
 
 \begin{document}
 
-\begin{abstract}
-    Dieses Readme deckt die Inbetriebnahme der am Medizinisches Interprofessionellen Trainingszentrum (MITZ) des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
-    Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
-\end{abstract}
+{ \Huge \noindent Technische Anleitung -- Readme} \newline
+{ \LARGE \noindent Selbstlerneinheit 12-Kanal-EKG}
+
+\subsubsection*{Zusammenfassung}
+Dieses Readme deckt die Inbetriebnahme der am Medizinisch Interprofessionellen Trainingszentrum des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
+Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
 
 \section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
 \label{sec:prerequisites}
@@ -117,7 +131,7 @@ Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann
 \end{formal}
 Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub} verfügbar.
 
-Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny{TM}} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
+Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
 \subsection{Kamera-IDs}
 \label{ssec:cam-indices}
@@ -151,10 +165,22 @@ Das Guide empfiehlt \code{opencv-contrib-python} zu installieren. Dies ist eine 
 \paragraph{Kontrollbilder}
 Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert werden. Hierfür muss im Projektordner einfach ein Ordner \enquote{results} erstellt werden.
 \\
-\footnotesize{\includegraphics[height=0.6em]{emojis/warning.png} Nach Kontrolle Ordner löschen, die Bilder sind unkomprimiert und damit sehr groß! \includegraphics[height=0.6em]{emojis/warning.png}}
+{\footnotesize \includegraphics[height=0.6em]{emojis/warning.png} Nach Kontrolle Ordner löschen, die Bilder sind unkomprimiert und damit sehr groß! \includegraphics[height=0.6em]{emojis/warning.png}}
 
 \section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
 \label{sec:known-issues}
-\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. \scriptsize{(Preventative fix ausstehend)}
+\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. {\scriptsize(Preventative fix ausstehend)}
+
+
+
+\begin{figure}[b]
+    \begin{flushleft}
+        \hspace*{7.4mm}
+        {\footnotesize Stand \today}
+    \end{flushleft}
+    \vspace{-3.5mm}
+    \centering
+    \includegraphics[width=14.61cm]{funding+license.png}
+\end{figure}
 
 \end{document}
