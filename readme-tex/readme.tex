@@ -19,8 +19,7 @@ contents={%
 
 \usepackage[default]{opensans}
 \usepackage[T1]{fontenc}
-
-\usepackage{titling}
+\usepackage{booktabs}
 
 \usepackage{url}
 \usepackage[all]{nowidow}
@@ -60,6 +59,7 @@ filecolor=blue]{hyperref}
 \definecolor{formalshade}{HTML}{f3fdde}
 
 \newenvironment{formal}{%
+\small
 \vspace*{-4mm}
     \def\FrameCommand{%
     \hspace{1pt}%
@@ -92,7 +92,7 @@ Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt
 Zur idealen Verwendung des Projektes wird benötigt
 \begin{itemize}
     \item Eine medizinische Übungspuppe in Lebensgröße
-    \item Ein EKG-Gerät mit 10 Elektroden + Klebepads
+    \item Ein EKG-Gerät mit 10 Steckelektroden + Klebepads
     \item Zwei USB-Kameras mit hoher Auflösung
     \item Ein PC zum Ausführen der Projektsoftware
     \item Ein Drucker, Klebeband und ein Klebestift
@@ -126,20 +126,71 @@ Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \en
     \item PyQt6 installieren: \code{pip install pyqt6}
 \end{enumerate}
 
-Es sind alle dependencies des Projektes installiert, und das Projekt selbst kann heruntergeladen und konfiguriert werden (siehe \ref{sec:installation-configuration}).
+Es sind alle dependencies des Projektes installiert.
 
-\subsection{Referenzmarker}
-\label{ssec:ref-markers}
-\warn{3D-printed approach pending}\\
+\section{Referenzmarker}
+\label{sec:ref-markers}
 Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt. Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m$^2$, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten.
-\subsubsection{Anfertigung}
-\label{sssec:marker-manufacturing}
-to be filled
 
-\subsubsection{Platzierung}
-\label{sssec:marker-placement}
-to be filled
+Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden also 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
 
+\subsection{Elektrodenmarker}
+\label{ssec:electrode-markers}
+\warn{TODO rework into step by step graphics}
+\begin{enumerate}
+    \item Marker ausdrucken und anhand der Trennlinien ausschneiden
+    \item Die Marker links, rechts und oben "trimmen", sodass auf den drei Seiten ca. 2mm weiße Umrandung übrigbleibt.
+    \item Jeden Marker von \textbf{hinten} mit einem Streifen Klebeband bekleben (Klebeseite zum Marker hin)
+    \item Den Marker Kantenparallel auf ein EKG-Klebepad kleben, sodass der Mittelpunk des Markers der oberen Kante des Befestigungsclips des Pads ca. 8mm übersteht.
+    \item Nun den unteren Teil des Markers zurechtstutzen.
+    \item Den Marker mithilfe des Pad-Clips an die Elektrode anstecken, und so weit nach hinten schieben, dass bei Benutzung des Setups Platz für das eigentliche Pad ist.
+\end{enumerate}
+
+Ideales Endergebnis:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2.5cm]{marker-front.png}
+    \hspace*{5mm}
+    \includegraphics[width=2.5cm]{marker-back.png}
+    \hspace*{5mm}
+    \includegraphics[width=2.5cm]{marker-attatched.png}
+\end{figure}
+
+\subsection{Ausrichtungsmarker}
+\label{ssec:reference-markers}
+Alle Ausrichtungsmarker müssen flach auf der Puppe angebracht werden. \warn{Hier stehen coole informative Details von Eva und darunter ist ein Beispielfoto}.
+
+\subsection{Positionierung}
+\label{sssec:marker-positioning}
+\begin{formal}
+    Dieser Teil ist relevant, wenn die mitgelieferten Lagedaten verwendet werden sollen\emoji{package}
+\end{formal}
+
+Die Marker müssen ihrer Nummer nach an den zugehörigen Elektroden angebracht werden:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{11mm}| p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm} p{9.5mm}}
+        Nr.  & 11  & 12  & 13  & 14 & 15 & 16 & 21 & 31 & 41  & 51 \\
+        Name & V1  & V2  & V3  & V4 & V5 & V6 & Rot & Gelb & Schw. & Grün \\
+    \end{tabular}
+\end{table}
+
+\noindent Um die Position der Elektroden zu bestimmen, müssen die Ausrichtungsmarker auf der Puppe angebracht werden. Diese sind entsprechend zugeordnet:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{10.5mm}| p{10.5mm} p{10.5mm} p{10.5mm} p{10.5mm} p{10.5mm}}
+        Nr.  & 19    & 29    & 39    & 49    & 59 \\
+        Name & Brust & Arm R & Arm L & Fuß R & Fuß L \\
+    \end{tabular}
+\end{table}
+
+Der Brust-Ausrichtungsmarker (Nummer 19) sollte dabei mit der oberen Kante auf Höhe der zweiten echten Rippe angebracht werden, sodass der Marker selbst innerhalb des zweiten ICR liegt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10.5cm]{placement-torso.png}\\
+\end{figure}
+
+Die Arm marker 
 
 \section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
 \label{sec:installation-configuration}
@@ -191,6 +242,9 @@ wobei Zeile 1 den Ausführungsort auf den Projektordner setzt, und Zeile 2 zum a
 
 Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(cd)} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten.
 
+\subsection{Auswertung konfigurieren}
+\label{ssec:configure-configuration}
+to be filled
 
 \section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}
 \label{sec:troubleshooting}
@@ -207,7 +261,10 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 
 \section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
 \label{sec:known-issues}
-\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. {\scriptsize(Preventative fix ausstehend)}
+\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt, sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. {\scriptsize(Preventative fix ausstehend)}
+
+\paragraph{Langsamer Autofokus}
+Leider sind die Auswertungen davon abhängig, dass der Autofokus der Kameras gut funktioniert. Hat eine Kamera einen schlechten Tag, so kann es sein, dass ein zweites Mal ausgewertet werden muss.
 
 
 

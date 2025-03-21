@@ -1,4 +1,5 @@
 # Marker identity and ROI overview
+OUT OF DATE!
 > This needs to be kept up to date manually! It is recommended to define your setup here and create your config file after.\
 _Breaks in tables are meant for grouping only._
 

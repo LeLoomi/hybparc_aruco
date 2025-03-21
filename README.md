@@ -1,9 +1,12 @@
-Hybparc Aruco
+virTUos Hybparc ECG-Training
 ==============
 
-Hands on ECG-placement Training software for med students.
+> ☝️ A much more extensive Readme is [available as PDF](/readme-tex/readme.pdf) in German
 
--> To have the software save the annotated pictures, create a 'results' directory. (Care, per pass 1 pic meaning rn per analysis 10-15 pictures, uncompressed!)
+Hands on ECG-placement Training software for med students. Students place ECG electrodes, and the software tells them which are right/wrong (/not detected).
+This project is being developed at [MITZ](https://tu-dresden.de/med/mf/mitz).
+
+-> To have the software save the annotated pictures, create a 'results' directory. (Care, per pass 1 pic meaning many pics per single evaluation, uncompressed!)
 
 General requirements
 --------------------
@@ -13,7 +16,6 @@ General requirements
 - Numpy
 - PyQt6
 - [ArucoRoi](https://GitHub.com/LeLoomi/ArucoRoi) <small>(Must be manually put in /lib/)<sup>1</sup></small>
-- qt-material <small>(for styling only, but has to be manually removed from the code if unwanted)</small>
 
 <small>1: Correct the import error in detector.py by changing `import services` to `from . import services`.</small>
 
