@@ -46,26 +46,27 @@ filecolor=blue]{hyperref}
     \includegraphics[height=0.8em]{emojis/#1.png}
     \endgroup
 }
+\newcommand{\realtilde}{{\raise.17ex\hbox{$\scriptstyle \mathtt{\sim}$}}}
 
 % --- Tooltip box start ---
 % for adjustwidth environment
 \usepackage[strict]{changepage}
 
-% for formal definitions
+% for tooltips
 \usepackage{framed}
 
 % environment derived from framed.sty: see leftbar environment definition
-\definecolor{formalpipe}{HTML}{8cc020}
-\definecolor{formalshade}{HTML}{f3fdde}
+\definecolor{tooltippipe}{HTML}{8cc020}
+\definecolor{tooltipshade}{HTML}{f3fdde}
 
-\newenvironment{formal}{%
+\newenvironment{tooltip}{%
 \small
 \vspace*{-4mm}
     \def\FrameCommand{%
     \hspace{1pt}%
-    {\color{formalpipe}\vrule width 0.7mm}%
-    {\color{formalshade}\vrule width 1.5mm}%
-    \colorbox{formalshade}%
+    {\color{tooltippipe}\vrule width 0.7mm}%
+    {\color{tooltipshade}\vrule width 1.5mm}%
+    \colorbox{tooltipshade}%
     }%
     \MakeFramed{\advance\hsize-\width\FrameRestore}%
     \noindent% disable indenting first paragraph
@@ -84,7 +85,7 @@ filecolor=blue]{hyperref}
 { \LARGE \noindent Selbstlerneinheit 12-Kanal-EKG}
 
 \subsubsection*{Zusammenfassung}
-Dieses Readme deckt die Inbetriebnahme der am Medizinisch Interprofessionellen Trainingszentrum des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
+Dieses Readme deckt die Inbetriebnahme der am \href{https://tu-dresden.de/med/mf/mitz}{Medizinisch Interprofessionellen Trainingszentrum} des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
 Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
 
 \section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
@@ -100,17 +101,17 @@ Zur idealen Verwendung des Projektes wird benötigt
 
 \subsection{USB-Kameras}
 \label{ssec:cameras}
-Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das Verwenden verschiedener Modelle ist meist möglich, solange die Kameras mit der gleichen Auflösung aufnehmen.
+Für stabile Anwendung sind Kameras mit hoher Auflösung, 4K UHD oder höher, empfohlen. Das Originalsetup basiert auf zwei \enquote{HP 960 4K}. Das Verwenden voneinander verschiedener Kameramodelle ist meist möglich, solange die Kameras in der gleichen Bildauflösung aufnehmen.
 
 
 \subsection{PC}
 \label{ssec:pc-reqs}
-\begin{formal}
+\begin{tooltip}
     Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
-\end{formal}
+\end{tooltip}
 Der PC benötigt mind. zwei freie USB-Ports (USB 2.0+). Das Projekt wurde mit Zielplattform Ubuntu Linux (Version 24.04.1 LTS) entwickelt.
 
-Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge\emoji{link}} bereitgestellte Variante (\enquote{miniconda}) genutzt werden. Das Projekt wurde mit Conda-Forge Version 24.9.2 entwickelt, sollte aber auch mit anderen Versionen funktionieren. Sollte miniconda direkt in die homedirectory des Benutzeraccounts installiert werden, können der bereitgestellte Desktop-shortcut und das dazugehörige shell script direkt verwendet werden.
+Auf dem PC muss die Umgebungsverwaltung Conda installiert sein. Aus Rechts- und Lizenzgründen sollte die über das Community-Projekt \href{https://conda-forge.org/}{Conda-Forge\emoji{link}} bereitgestellte Variante \enquote{miniconda} genutzt werden. Das Projekt wurde mit Conda-Forge Version 24.9.2 entwickelt, sollte aber auch mit anderen Versionen funktionieren. Sollte miniconda direkt in die homedirectory des Benutzeraccounts installiert werden, können der bereitgestellte Desktop-shortcut und das dazugehörige shell script direkt verwendet werden.
 
 Nachdem conda installiert wurde, kann es im Terminal mit dem Befehl \code{conda} verwendet werden. Conda stellt isolierte Laufzeitumgebungen zur Verfügung und muss noch über das Terminal konfiguriert werden:
 \begin{enumerate}
@@ -130,41 +131,43 @@ Es sind alle dependencies des Projektes installiert.
 
 \section{Referenzmarker}
 \label{sec:ref-markers}
-Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt. Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m$^2$, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten.
+Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt. Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m\textsuperscript{2}, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten.
 
-Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden also 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
+Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden insgesamt 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
 
 \subsection{Elektrodenmarker}
 \label{ssec:electrode-markers}
-\warn{TODO rework into step by step graphics}
 \begin{enumerate}
     \item Marker ausdrucken und anhand der Trennlinien ausschneiden
-    \item Die Marker links, rechts und oben "trimmen", sodass auf den drei Seiten ca. 2mm weiße Umrandung übrigbleibt.
+    \item Die Marker links, rechts und oben \enquote{trimmen}, sodass auf den drei Seiten ca. 2mm weiße Umrandung überbleibt.
     \item Jeden Marker von \textbf{hinten} mit einem Streifen Klebeband bekleben (Klebeseite zum Marker hin)
-    \item Den Marker Kantenparallel auf ein EKG-Klebepad kleben, sodass der Mittelpunk des Markers der oberen Kante des Befestigungsclips des Pads ca. 8mm übersteht.
+    \item Den Marker Kantenparallel auf ein EKG-Klebepad kleben, sodass der Mittelpunk des Markers der oberen Kante des Befestigungsclips des Pads ca. vier bis fünf mm übersteht.
     \item Nun den unteren Teil des Markers zurechtstutzen.
     \item Den Marker mithilfe des Pad-Clips an die Elektrode anstecken, und so weit nach hinten schieben, dass bei Benutzung des Setups Platz für das eigentliche Pad ist.
 \end{enumerate}
 
-Ideales Endergebnis:
+Angestrebtes Endergebnis:
 \begin{figure}[H]
     \centering
     \includegraphics[width=2.5cm]{marker-front.png}
     \hspace*{5mm}
     \includegraphics[width=2.5cm]{marker-back.png}
     \hspace*{5mm}
+    \includegraphics[width=2.5cm]{marker-back-zoomed.png}
+    \hspace*{5mm}
     \includegraphics[width=2.5cm]{marker-attatched.png}
 \end{figure}
 
 \subsection{Ausrichtungsmarker}
 \label{ssec:reference-markers}
-Alle Ausrichtungsmarker müssen flach auf der Puppe angebracht werden. \warn{Hier stehen coole informative Details von Eva und darunter ist ein Beispielfoto}.
+Alle Ausrichtungsmarker müssen möglichst flach auf der Puppe angebracht werden. Es ist wichtig, dass sie unbeweglich sind und bleiben, sie dürfen nicht verdeckt werden.
+
 
 \subsection{Positionierung}
 \label{sssec:marker-positioning}
-\begin{formal}
+\begin{tooltip}
     Dieser Teil ist relevant, wenn die mitgelieferten Lagedaten verwendet werden sollen\emoji{package}
-\end{formal}
+\end{tooltip}
 
 Die Marker müssen ihrer Nummer nach an den zugehörigen Elektroden angebracht werden:
 \begin{table}[H]
@@ -190,20 +193,63 @@ Der Brust-Ausrichtungsmarker (Nummer 19) sollte dabei mit der oberen Kante auf H
     \includegraphics[width=10.5cm]{placement-torso.png}\\
 \end{figure}
 
-Die Arm marker 
+Die Ausrichtungsmarker der Arme müssen etwa acht cm proximal vom Handgelenk aus angebracht werden. Die Marker der Beine etwa 15 cm proximal vom Knöchel aus gesehen.
 
-\section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
+\section{Physisches Setup \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
+\label{sec:physical-setup}
+\begin{tooltip}
+    Dieses Kapitel bezieht sich explizit auf das im MITZ erprobte Setup\emoji{index-pointing-up}
+\end{tooltip}
+Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung der Liege ist frei wählbar, solange die unten genannten Kameraabstände gewahrt werden. Für die beiden Kameras empfiehlt es sich, eine stabile und beständige Befestigungsgrundlage zu finden. Als Endergebnis sollte angestrebt werden:
+\begin{figure}[H]
+    \centering
+    \vspace*{2cm}
+    \warn{placeholder complete setup wideshot}
+    \vspace*{2cm}
+    %\includegraphics[width=10.5cm]{camera-indices.png}
+\end{figure}
+
+\subsection{Kamera Torso}
+\label{ssec:cam-torso}
+\begin{figure}[H]
+    \centering
+    \vspace*{2cm}
+    \warn{placeholder topview infographic}
+    \hspace*{2cm}
+    \warn{placeholder sideview infographic}
+    \vspace*{2cm}
+    %\includegraphics[width=10.5cm]{camera-indices.png}
+\end{figure}
+
+\subsection{Kamera Beine}
+\label{ssec:cam-legs}
+\begin{figure}[H]
+    \centering
+    \vspace*{2cm}
+    \warn{placeholder topview infographic}
+    \hspace*{2cm}
+    \warn{placeholder sideview infographic}
+    \vspace*{2cm}
+    %\includegraphics[width=10.5cm]{camera-indices.png}
+\end{figure}
+
+
+\section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/gear.png}}
 \label{sec:installation-configuration}
-\begin{formal}
-    Dieser Teil sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
-\end{formal}
-Es ist empfohlen, einen vorgefertigten Release von \warn{Twillo? Github?} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\~/repos/hybparc\_aruco/}).
+\begin{tooltip}
+    Dieser Abschnitt sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
+\end{tooltip}
+Es ist empfohlen, einen vorgefertigten Release von \href{https://link-ausstehend}{Twillo\emoji{link} \warn{link ausstehend}} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\realtilde/repos/hybparc\_aruco/}).
 
 Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
 \subsection{Kamera-IDs}
 \label{ssec:cam-indices}
-Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potenziell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-"Reihenfolge" der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle.
+Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potenziell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-\enquote{Reihenfolge} der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle. Die entsprechenden IDs müssen in der Datei \code{main.py} angepasst werden:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10.5cm]{camera-indices.png}
+\end{figure}
 
 \subsection{Andere Auflösung}
 \label{ssec:custom-resolution}
@@ -244,8 +290,26 @@ Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\tex
 
 \subsection{Auswertung konfigurieren}
 \label{ssec:configure-configuration}
-to be filled
+\begin{tooltip}
+    Dieser Schritt ist auch beim Verwenden der Vorgefertigten Markerkonfiguration notwendig\emoji{head-shaking-vertically}
+\end{tooltip}
+Je nach Unterschieden im Setup (Kameraauflösung, Kameradistanzen, Kamerawinkel) müssen die vorhandenen Lagekonfigurationen im File \code{mitz-ekg-config.json} angepasst werden. Die Konfiguration liegt im JSON Format vor und strukturiert sich wie folgt:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=13.5cm]{json-tree.png}
+\end{figure}
 
+\noindent Wobei jeder Eintrag der Arrays \code{rois} jeweils einen \enquote{Elektrodenbereich} definiert:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10.5cm]{json-explainer.png}
+\end{figure}
+
+\noindent Die Positionierungen und Größen aller Bereiche müssen vor Verwendung des Projektes mit für medizinischem Personal überprüft und Fehler korrigiert werden. Um die Konfigurationen live anzupassen, empfiehlt es sich das Tool \href{https://github.com/leloomi/arucoroi}{ArucoRoi\emoji{link}} zu verwenden; es liegt dem Projekt bei und ermöglicht Live-Anpassung der Konfigurationen. Es muss über das Terminal im selben Conda-environment verwendet werden wie das Hauptprojekt (\code{conda activate hybparc}) und kann mit \code{python example.py} im Ordner \code{ArucoRoi} ausgeführt werden. 
+
+Wenn das in diesem Ordner liegende Config-File verändert gespeichert wird, werden auch die Bereiche auch im Live-View aktualisiert. Um die Config mit der anderen Kamera zu testen muss in der \code{example.py}, Zeile 8, die Kamera ID geändert und ArucoRoi neugestartet werden (siehe \ref{ssec:cam-indices}). Die software kann mit \code{q} geschlossen werden.
+
+Die fertig angepasste Konfiguration muss abschließend noch in den \code{hybparc\_aruco} Ordner kopiert werden um die veraltete zu ersetzen.
 \section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}
 \label{sec:troubleshooting}
 
@@ -261,19 +325,27 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 
 \section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
 \label{sec:known-issues}
-\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt, sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf. {\scriptsize(Preventative fix ausstehend)}
+\paragraph{Abhängigkeit von Lichtverhältnissen} Da die Software Kamerabasiert arbeitet, ist sie stark abhängig von den Lichtverhältnissen. Die besten Ergebnisse lassen sich erzielen, wenn Tageslicht vom Raum ausgeschlossen wird (Rollo) und dafür ausreichen top-down Beleuchtung durch das Deckenlicht erreicht wird. \warn{issue? -> eher in room setup oder sowas unterbringen}
+
+\paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt, sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf.
 
 \paragraph{Langsamer Autofokus}
 Leider sind die Auswertungen davon abhängig, dass der Autofokus der Kameras gut funktioniert. Hat eine Kamera einen schlechten Tag, so kann es sein, dass ein zweites Mal ausgewertet werden muss.
 
 
+\section{Feedback}
+In diesem Guide nicht aufgeführte Fehler können gern via \href{https://github.com/LeLoomi/hybparc_aruco/issues}{GitHub Issues\emoji{link}} gemeldet werden, ebenso Verbesserungsvorschläge für dieses Readme.
 
+\noindent Feedback zu allen anderen Aspekten der Lerneinheit findet seinen Weg am besten per Mail direkt an das \href{https://tu-dresden.de/med/mf/mitz/daszentrum/kontakt}{MITZ\emoji{link}}.
+
+
+% upper end of document footer
 \begin{figure}[b]
     \begin{flushleft}
         \hspace*{7.4mm}
         {\footnotesize Stand \today}
     \end{flushleft}
-    \vspace{-3.5mm}
+    \vspace{-3.3mm}
     \centering
     \includegraphics[width=14.61cm]{funding+license.png}
 \end{figure}
