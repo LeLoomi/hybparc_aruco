@@ -85,15 +85,15 @@ filecolor=blue]{hyperref}
 { \LARGE \noindent Selbstlerneinheit 12-Kanal-EKG}
 
 \subsubsection*{Zusammenfassung}
-Dieses Readme deckt die Inbetriebnahme der am \href{https://tu-dresden.de/med/mf/mitz}{Medizinisch Interprofessionellen Trainingszentrum} des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
+Dieses Readme umfasst die Inbetriebnahme der am \href{https://tu-dresden.de/med/mf/mitz}{Medizinisch Interprofessionellen Trainingszentrum} des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
 Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
 
 \section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
 \label{sec:prerequisites}
 Zur idealen Verwendung des Projektes wird benötigt
 \begin{itemize}
-    \item Eine medizinische Übungspuppe in Lebensgröße
-    \item Ein EKG-Gerät mit 10 Steckelektroden + Klebepads
+    \item Eine Übungspuppe mit gut tastbaren Intercostalräumen
+    \item Ein 12-Kanal-EKG + Klebeelektroden
     \item Zwei USB-Kameras mit hoher Auflösung
     \item Ein PC zum Ausführen der Projektsoftware
     \item Ein Drucker, Klebeband und ein Klebestift
@@ -239,7 +239,7 @@ Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung 
 \begin{tooltip}
     Dieser Abschnitt sollte mit der IT-Abteilung besprochen werden\emoji{technologist}
 \end{tooltip}
-Es ist empfohlen, einen vorgefertigten Release von \href{https://link-ausstehend}{Twillo\emoji{link} \warn{link ausstehend}} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\realtilde/repos/hybparc\_aruco/}).
+Es ist empfohlen, einen vorgefertigten Release von \href{https://www.twillo.de/edu-sharing/components/render/1345111e-baf1-4023-b27e-66bcd533de3a}{Twillo\emoji{link}} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\realtilde/repos/hybparc\_aruco/}).
 
 Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
 
@@ -335,8 +335,6 @@ Leider sind die Auswertungen davon abhängig, dass der Autofokus der Kameras gut
 
 \section{Feedback}
 In diesem Guide nicht aufgeführte Fehler können gern via \href{https://github.com/LeLoomi/hybparc_aruco/issues}{GitHub Issues\emoji{link}} gemeldet werden, ebenso Verbesserungsvorschläge für dieses Readme.
-
-\noindent Feedback zu allen anderen Aspekten der Lerneinheit findet seinen Weg am besten per Mail direkt an das \href{https://tu-dresden.de/med/mf/mitz/daszentrum/kontakt}{MITZ\emoji{link}}.
 
 
 % upper end of document footer
