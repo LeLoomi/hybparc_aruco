@@ -290,7 +290,7 @@ Die durch den shortcut aufgerufene \code{starte-ekg.sh} enthält lediglich
 \end{verbatim}
 wobei Zeile 1 den Ausführungsort auf den Projektordner setzt, und Zeile 2 zum ausführen der \code{main.py} den direkten Pfad der python-executable nutzt, die in das hybparc conda-environment installiert ist. So kann erreicht werden, dass Nutzende ausschließlich das user interface sehen.
 
-Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(cd)} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten.
+Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(cd)} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten. Um das shellscript tatsächlich ausführbar zu machen, muss es via Terminal mit dem Befehl \code{chmod +x starte-ekg.sh} \enquote{behandelt} werden.
 
 \subsection{Auswertung konfigurieren}
 \label{ssec:configure-configuration}
