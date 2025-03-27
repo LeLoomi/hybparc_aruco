@@ -2,7 +2,7 @@
 
 \usepackage[a4paper, top=45mm, headsep=15mm, left=30mm, right=20mm, bottom=40mm]{geometry}
 \usepackage{background}
-
+\usepackage{caption}
 \usepackage{float}
 
 \pagestyle{empty}
@@ -162,7 +162,6 @@ Angestrebtes Endergebnis:
 \label{ssec:reference-markers}
 Alle Ausrichtungsmarker müssen möglichst flach auf der Puppe angebracht werden. Es ist wichtig, dass sie unbeweglich sind und bleiben, sie dürfen nicht verdeckt werden.
 
-
 \subsection{Positionierung}
 \label{sssec:marker-positioning}
 \begin{tooltip}
@@ -200,39 +199,40 @@ Die Ausrichtungsmarker der Arme müssen etwa acht cm proximal vom Handgelenk aus
 \begin{tooltip}
     Dieses Kapitel bezieht sich explizit auf das im MITZ erprobte Setup\emoji{index-pointing-up}
 \end{tooltip}
-Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung der Liege ist frei wählbar, solange die unten genannten Kameraabstände gewahrt werden. Für die beiden Kameras empfiehlt es sich, eine stabile und beständige Befestigungsgrundlage zu finden. Als Endergebnis sollte angestrebt werden:
+Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung der Liege ist frei wählbar, solange die entsprechenden Parameter gewahrt werden:
+
 \begin{figure}[H]
     \centering
-    \vspace*{2cm}
+    \begin{minipage}[c]{0.475\linewidth}
+        \centering
+        \captionsetup{labelformat=empty}
+        \caption{\textit{Draufsicht} \hspace*{10mm}}
+        \vspace*{-4mm}
+        \includegraphics[width=60mm]{cam-placements_topview.png}
+    \end{minipage}
+    \hspace*{-4mm}
+    \begin{minipage}[c]{0.5\linewidth}
+        \centering
+        \captionsetup{labelformat=empty}
+
+        \caption{\textit{Torso}}
+        \vspace*{-6mm}
+        \includegraphics[width=70mm]{cam-placements_torso.png}
+
+        \vspace*{4mm}
+
+        \caption{\textit{Beine}}
+        \vspace*{-6mm}
+        \includegraphics[width=70mm]{cam-placements_legs.png}
+    \end{minipage}
+\end{figure}
+
+Für die beiden Kameras empfiehlt es sich, eine stabile und beständige Befestigungsgrundlage zu finden. Als Endergebnis sollte angestrebt werden:
+\begin{figure}[H]
+    \centering
     \warn{placeholder complete setup wideshot}
-    \vspace*{2cm}
     %\includegraphics[width=10.5cm]{camera-indices.png}
 \end{figure}
-
-\subsection{Kamera Torso}
-\label{ssec:cam-torso}
-\begin{figure}[H]
-    \centering
-    \vspace*{2cm}
-    \warn{placeholder topview infographic}
-    \hspace*{2cm}
-    \warn{placeholder sideview infographic}
-    \vspace*{2cm}
-    %\includegraphics[width=10.5cm]{camera-indices.png}
-\end{figure}
-
-\subsection{Kamera Beine}
-\label{ssec:cam-legs}
-\begin{figure}[H]
-    \centering
-    \vspace*{2cm}
-    \warn{placeholder topview infographic}
-    \hspace*{2cm}
-    \warn{placeholder sideview infographic}
-    \vspace*{2cm}
-    %\includegraphics[width=10.5cm]{camera-indices.png}
-\end{figure}
-
 
 \section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/gear.png}}
 \label{sec:installation-configuration}
@@ -331,7 +331,6 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 
 \paragraph{Langsamer Autofokus}
 Leider sind die Auswertungen davon abhängig, dass der Autofokus der Kameras gut funktioniert. Hat eine Kamera einen schlechten Tag, so kann es sein, dass ein zweites Mal ausgewertet werden muss.
-
 
 \section{Feedback}
 In diesem Guide nicht aufgeführte Fehler können gern via \href{https://github.com/LeLoomi/hybparc_aruco/issues}{GitHub Issues\emoji{link}} gemeldet werden, ebenso Verbesserungsvorschläge für dieses Readme.
