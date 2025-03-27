@@ -1,9 +1,18 @@
 \documentclass[a4paper, 10pt]{article}
 
+\usepackage{setspace}
+\setstretch{1.15}
+
 \usepackage[a4paper, top=45mm, headsep=15mm, left=30mm, right=20mm, bottom=40mm]{geometry}
 \usepackage{background}
 \usepackage{caption}
 \usepackage{float}
+
+\usepackage{titlesec}
+\titlespacing*{\section}
+{0pt}{22pt}{8pt}
+\titlespacing*{\subsection}
+{0pt}{16pt}{6pt}
 
 \pagestyle{empty}
 
@@ -119,7 +128,7 @@ Nachdem conda installiert wurde, kann es im Terminal mit dem Befehl \code{conda}
     \item Neue Umgebung Aktivieren: \code{conda activate hybparc}
 \end{enumerate}
 
-Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \enquote{Pip} (Python Paketmanager) und danach via Pip noch Python Pakete installiert werden. Sollte im Terminal nachgefragt werden, ob zusätzliche Abhängigkeiten (dependencies) mitinstalliert werden sollen, sollte dies mit \code{y} bestätigt werden.
+\noindent Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \enquote{Pip} (Python Paketmanager) und danach via Pip noch Python Pakete installiert werden. Sollte im Terminal nachgefragt werden, ob zusätzliche Abhängigkeiten (dependencies) mitinstalliert werden sollen, sollte dies mit \code{y} bestätigt werden.
 
 \begin{enumerate}
     \item Pip installieren: \code{conda install pip}
@@ -129,17 +138,17 @@ Nun ist das offene Terminal auf die neue Umgebung gesetzt. Es müssen zuerst \en
 
 Es sind alle dependencies des Projektes installiert.
 
-\section{Referenzmarker}
+\section{Marker}
 \label{sec:ref-markers}
-Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt. Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m\textsuperscript{2}, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten.
+Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt (ähnlich zu QR-Codes). Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m\textsuperscript{2}, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten. Die Marker haben verschiedene Abmessungen um für Distanzunterschiede (19, 29) und Überdeckungen (15, 16) zu kompensieren.
 
-Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden insgesamt 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
+\noindent Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden insgesamt 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
 
 \subsection{Elektrodenmarker}
 \label{ssec:electrode-markers}
 \begin{enumerate}
     \item Marker ausdrucken und anhand der Trennlinien ausschneiden
-    \item Die Marker links, rechts und oben \enquote{trimmen}, sodass auf den drei Seiten ca. 2mm weiße Umrandung überbleibt.
+    \item Die Marker links, rechts und oben \enquote{trimmen}, sodass auf den drei Seiten ca. 1 bis 2 mm weiße Umrandung überbleibt.
     \item Jeden Marker von \textbf{hinten} mit einem Streifen Klebeband bekleben (Klebeseite zum Marker hin)
     \item Den Marker Kantenparallel auf ein EKG-Klebepad kleben, sodass der Mittelpunk des Markers der oberen Kante des Befestigungsclips des Pads ca. vier bis fünf mm übersteht.
     \item Nun den unteren Teil des Markers zurechtstutzen.
@@ -186,13 +195,13 @@ Die Marker müssen ihrer Nummer nach an den zugehörigen Elektroden angebracht w
     \end{tabular}
 \end{table}
 
-Der Brust-Ausrichtungsmarker (Nummer 19) sollte dabei mit der oberen Kante auf Höhe der zweiten echten Rippe angebracht werden, sodass der Marker selbst innerhalb des zweiten ICR liegt.
+\noindent Der Brust-Ausrichtungsmarker (Nummer 19) sollte dabei mit der oberen Kante auf Höhe der zweiten echten Rippe angebracht werden, sodass der Marker selbst innerhalb des zweiten ICR liegt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=10.5cm]{placement-torso.png}\\
 \end{figure}
 
-Die Ausrichtungsmarker der Arme müssen etwa acht cm proximal vom Handgelenk aus angebracht werden. Die Marker der Beine etwa 15 cm proximal vom Knöchel aus gesehen.
+\noindent Die Ausrichtungsmarker der Arme müssen etwa acht cm proximal vom Handgelenk aus angebracht werden. Die Marker der Beine etwa 15 cm proximal vom Knöchel aus gesehen.
 
 \section{Physisches Setup \includegraphics[height=0.65em]{emojis/hammer-and-wrench.png}}
 \label{sec:physical-setup}
@@ -227,12 +236,7 @@ Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung 
     \end{minipage}
 \end{figure}
 
-Für die beiden Kameras empfiehlt es sich, eine stabile und beständige Befestigungsgrundlage zu finden. Als Endergebnis sollte angestrebt werden:
-\begin{figure}[H]
-    \centering
-    \warn{placeholder complete setup wideshot}
-    %\includegraphics[width=10.5cm]{camera-indices.png}
-\end{figure}
+\noindent Für die beiden Kameras empfiehlt es sich, eine stabile und beständige Befestigungsgrundlage zu finden, welche dem anstoßen von Nutzenden widerstehen kann; sonst muss die Integrität der Kameraausrichtungen regelmäßig mithilfe von ArucoRoi (siehe \ref{ssec:configure-configuration}) nachkontrolliert werden.
 
 \section{Projekinstallation, Konfiguration \includegraphics[height=0.65em]{emojis/gear.png}}
 \label{sec:installation-configuration}
@@ -325,7 +329,7 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 
 \section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
 \label{sec:known-issues}
-\paragraph{Abhängigkeit von Lichtverhältnissen} Da die Software Kamerabasiert arbeitet, ist sie stark abhängig von den Lichtverhältnissen. Die besten Ergebnisse lassen sich erzielen, wenn Tageslicht vom Raum ausgeschlossen wird (Rollo) und dafür ausreichen top-down Beleuchtung durch das Deckenlicht erreicht wird. \warn{issue? -> eher in room setup oder sowas unterbringen}
+\paragraph{Abhängigkeit von Lichtverhältnissen} Da die Software Kamerabasiert arbeitet, ist sie stark abhängig von den Lichtverhältnissen. Die besten Ergebnisse lassen sich erzielen, wenn Tageslicht vom Raum ausgeschlossen wird (Rollo) und dafür ausreichen top-down Beleuchtung durch das Deckenlicht erreicht wird.
 
 \paragraph{Crash noch vor der Auswertung} Leider sind die Zeiten mit denen  Kameras für die Software verfügbar sind abhängig vom Betriebssystem, (gefühlt) der Raumtemperatur(?), dem PC und dessen Tagesstimmung usw. Es kann also vorkommen, dass die Software abstürzt, sollte \enquote{zu schnell} auf auswerten gedrückt werden. Hier muss die Software einfach neugestartet werden und vor dem Auswerten 15-30s gewartet werden. Sobald einmal eine Auswertung vorgenommen wurde, sind die Kameras an die Software gebunden und solche crashes treten nicht mehr auf.
 
