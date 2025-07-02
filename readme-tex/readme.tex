@@ -8,6 +8,9 @@
 \usepackage{caption}
 \usepackage{float}
 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \usepackage{titlesec}
 \titlespacing*{\section}
 {0pt}{22pt}{8pt}
@@ -22,7 +25,7 @@ color=black,
 opacity=1.0,
 angle=0,
 contents={%
-    \includegraphics[width=\paperwidth]{header+footer.png}
+    \includegraphics[width=\paperwidth]{header+footer.pdf}
     }%
 }
 
@@ -36,16 +39,20 @@ contents={%
 \usepackage[german]{babel}
 \usepackage{csquotes}
 
-
-\usepackage{graphicx}
-\graphicspath{ {./images/} }
-
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks=true,colorlinks,
 linkcolor=MidnightBlue,
 citecolor=MidnightBlue,
 urlcolor=MidnightBlue,
 filecolor=blue]{hyperref}
+
+\hypersetup{
+pdftitle={Technische Anleitung - Readme},
+pdfsubject={Selbstlerneinheit 12-Kanal-EKG},
+pdfauthor={Eliah Lohr},
+pdfkeywords={technische Anleitung, readme, Selbstlernen, EKG}
+}
+
 \usepackage[capitalise]{cleveref}
 
 \newcommand{\warn}[1]{\textcolor{red}{#1}}
