@@ -6,7 +6,7 @@ from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
 from results_widget import ResultsWidget
-from qt_material import apply_stylesheet    # optional prettifier
+from alignment_wizard_widget import AlignmentWizardWidget
 from json import load
 from time import sleep
 
@@ -22,6 +22,13 @@ class MainWindow(QMainWindow):
     def __init__(self):
         print('[Hybparc] Booting up')
         super().__init__()
+        
+        # ! TMP
+        self.showMaximized()
+        self.setWindowTitle('Hybparc EKG (Aruco)')
+        self.detector = Detector(self.config_path)
+        self.show_alignment_wizard()
+        return
         
         # Detector setup, loaded file is the ROI config
         self.detector = Detector(self.config_path)
@@ -52,6 +59,11 @@ class MainWindow(QMainWindow):
         welcome_widget = WelcomeWidget()
         welcome_widget.start_pressed.connect(self.show_place_electrodes)
         self.setCentralWidget(welcome_widget)
+        
+    def show_alignment_wizard(self):
+        print('[Hybparc] Displaying alignemnt wizard widget')
+        alignemt_wizard_widget = AlignmentWizardWidget(self.detector)
+        self.setCentralWidget(alignemt_wizard_widget)
 
     # Helper func for login_widget
     def set_login_info(self, login_name, login_domain):
