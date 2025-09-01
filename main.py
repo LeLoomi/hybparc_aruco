@@ -1,6 +1,7 @@
 import cv2 as cv    # sadly we have to load cv here, since we use it to capture the images
 from lib.detector import Detector
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtCore import Qt
 from welcome_widget import WelcomeWidget
 from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
@@ -27,8 +28,6 @@ class MainWindow(QMainWindow):
         self.showMaximized()
         self.setWindowTitle('Hybparc EKG (Aruco)')
         self.detector = Detector(self.config_path)
-        self.show_alignment_wizard()
-        return
         
         # Detector setup, loaded file is the ROI config
         self.detector = Detector(self.config_path)
@@ -57,12 +56,13 @@ class MainWindow(QMainWindow):
     def show_welcome_widget(self):
         print('[Hybparc] Diplaying welcome widget')
         welcome_widget = WelcomeWidget()
-        welcome_widget.start_pressed.connect(self.show_place_electrodes)
+        welcome_widget.start_pressed.connect(self.show_alignment_wizard)
         self.setCentralWidget(welcome_widget)
         
     def show_alignment_wizard(self):
         print('[Hybparc] Displaying alignemnt wizard widget')
-        alignemt_wizard_widget = AlignmentWizardWidget(self.detector)
+        alignemt_wizard_widget = AlignmentWizardWidget(self.detector, self.stream0, self.stream1)
+        alignemt_wizard_widget.wizard_done_signal.connect(self.show_place_electrodes)
         self.setCentralWidget(alignemt_wizard_widget)
 
     # Helper func for login_widget
@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         self.login_name = login_name
         self.login_domain = login_domain
 
-    # For loggin in with your institution, so your result can be uploaded (CURRENTLY DEPRECATED)
+    # For logging in with your institution, so your result can be uploaded (CURRENTLY DEPRECATED)
     def show_login_widget(self):
         print('[Hybparc] Diplaying login widget')
         login_widget = LoginWidget()
@@ -122,6 +122,5 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    #apply_stylesheet(app, theme='light_blue.xml')
     window.show()
     app.exec()

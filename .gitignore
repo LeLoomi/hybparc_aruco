@@ -7,4 +7,3 @@ lib/
 
 .DS_Store
 ui-tester.py
-*.png
