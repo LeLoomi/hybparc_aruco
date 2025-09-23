@@ -252,15 +252,11 @@ Die Übungspuppe sollte auf einer Liege platziert werden. Die Höheneinstellung 
 \end{tooltip}
 Es ist empfohlen, einen vorgefertigten Release von \href{https://www.twillo.de/edu-sharing/components/render/1345111e-baf1-4023-b27e-66bcd533de3a}{Twillo\emoji{link}} herunterzuladen. Bei Bedarf steht der aktuelle Sourcecode auf \href{https://github.com/leloomi/hybparc_aruco}{GitHub\emoji{link}} verfügbar. Falls der in \ref{ssec:pc-reqs} angebotene Desktop-shortcut und sein shell-Script verwendet werden sollen, muss das Projekt in der homedirectory im Ordner \code{repos} installiert werden (Gesamtpfad \code{\realtilde/repos/hybparc\_aruco/}).
 
-Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren. 
+Sollten die verwendeten Kameras die \textbf{exakt} gleiche Auflösung (3840x2160) wie die des Originalsetups haben, und MJPEG unterstützen, sollte\textsuperscript{\tiny TM} das Projekt (unter Ubuntu Linux) nun ohne Probleme funktionieren.
 
 \subsection{Kamera-IDs}
 \label{ssec:cam-indices}
-Potentiell müssen die interface IDs angepasst werden, diese können mit den v4l2 command line tools (müssen potenziell nachinstalliert werden) ausgelesen werden: \code{v4l2-ctl --list-devices}. Die Konfigurations-\enquote{Reihenfolge} der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle. Die entsprechenden IDs müssen in der Datei \code{main.py} angepasst werden:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=10.5cm]{camera-indices.png}
-\end{figure}
+Potentiell müssen die IDs der Kamera-Interfaces angepasst werden. Diese können mit den v4l2 command line tools ausgelesen werden: \code{v4l2-ctl --list-devices}. v4l2 muss potenziell nachinstalliert werden. Die Konfigurations-\enquote{Reihenfolge} der Kameras (Unterkörper vs. Oberkörper) spielt keine Rolle. Die entsprechenden IDs müssen im oberen Bereich der Datei \code{main.py} angepasst werden (\code{CAMERA\_INDEX0} und \code{CAMERA\_INDEX1}).
 
 \subsection{Andere Auflösung}
 \label{ssec:custom-resolution}
@@ -297,7 +293,7 @@ Die durch den shortcut aufgerufene \code{starte-ekg.sh} enthält lediglich
 \end{verbatim}
 wobei Zeile 1 den Ausführungsort auf den Projektordner setzt, und Zeile 2 zum ausführen der \code{main.py} den direkten Pfad der python-executable nutzt, die in das hybparc conda-environment installiert ist. So kann erreicht werden, dass Nutzende ausschließlich das user interface sehen.
 
-Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(cd)} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten. Um das shellscript tatsächlich ausführbar zu machen, muss es via Terminal mit dem Befehl \code{chmod +x starte-ekg.sh} \enquote{behandelt} werden.
+Die beiden Zeilen können \emph{nicht} vereinigt werden! Der change directoy\textsuperscript{(\code{cd})} Befehl ist nötig um das Projekt in seinem Ordner auszuführen, sonst zerbrechen Abhängigkeiten. Um das shellscript tatsächlich ausführbar zu machen, muss es via Terminal mit dem Befehl \code{chmod +x starte-ekg.sh} \enquote{behandelt} werden.
 
 \subsection{Auswertung konfigurieren}
 \label{ssec:configure-configuration}

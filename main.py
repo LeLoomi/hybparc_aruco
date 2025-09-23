@@ -17,6 +17,9 @@ class MainWindow(QMainWindow):
     detector_passes = 7
     warmup_passes = 11
     
+    CAMERA_INDEX0 = 0
+    CAMERA_INDEX1 = 4
+    
     roi_statuses = dict()
     
     # Entry into the GUI
@@ -38,11 +41,11 @@ class MainWindow(QMainWindow):
         
         # Setup and warm up cameras
         #! Adjustments are specific to the HP 960 4K in our physical setup
-        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
+        self.stream0 = cv.VideoCapture(index=self.CAMERA_INDEX0, apiPreference=cv.CAP_ANY)
         self.stream0.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         self.stream0.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
         self.stream0.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
-        self.stream1 = cv.VideoCapture(index=4, apiPreference=cv.CAP_ANY)
+        self.stream1 = cv.VideoCapture(index=self.CAMERA_INDEX1, apiPreference=cv.CAP_ANY)
         self.stream1.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         self.stream1.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
         self.stream1.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
