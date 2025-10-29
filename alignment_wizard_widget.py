@@ -107,8 +107,7 @@ class AlignmentWizardWidget(QWidget):
             
         elif(self.frame_n == self.SKIP_FRAMES):
             self.frame_n = 0
-            unfinished_result = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(0, 255, 0), line_thickness=5)
-            self.current_live_skeleton = cv.cvtColor(unfinished_result, cv.COLOR_BGRA2RGBA)
+            self.current_live_skeleton = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(0, 255, 0), line_thickness=3)
             
         else:
             self.frame_n = 0
@@ -117,15 +116,16 @@ class AlignmentWizardWidget(QWidget):
         bytesPerLine = 4 * width
         
         try:
-            raw_and_saved_overlay = cv.add(self.raw_frame, self.saved_skeleton) # pyright: ignore[reportArgumentType, reportCallIssue]
+            raw_with_saved_skeleton = self.overlay_opaque(self.raw_frame, self.saved_skeleton) # pyright: ignore[reportArgumentType, reportCallIssue]
         except: 
             # if we don't have a saved overlay
-            raw_and_saved_overlay = self.raw_frame
+            raw_with_saved_skeleton = self.raw_frame
         
-        raw_and_saved_overlay = cv.add(raw_and_saved_overlay, self.current_live_skeleton)
+        print(self.current_live_skeleton.shape, self.current_live_skeleton[..., 3].min(), self.current_live_skeleton[..., 3].max())
+        raw_with_both = self.overlay_opaque(raw_with_saved_skeleton, self.current_live_skeleton)
         
         qImg = QImage(
-            raw_and_saved_overlay.data, 
+            raw_with_both.data, 
             width, 
             height, 
             bytesPerLine, 
@@ -134,9 +134,25 @@ class AlignmentWizardWidget(QWidget):
         self.imageLabel.setPixmap(pixmap)
     
     def save_current(self):
-        img = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(127, 0, 255), line_thickness=5)
+        img = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(255, 0, 127), line_thickness=7)
         cv.imwrite("./alignment-save.png", cv.cvtColor(img, cv.COLOR_BGRA2RGBA))
         self.reload_overlay = True
+    
+    # ! assumes, that the two images are the same size
+    # https://docs.opencv.org/3.4/d0/d86/tutorial_py_image_arithmetics.html
+    @staticmethod
+    def overlay_opaque(base_img: cv.typing.MatLike, overlay_img: cv.typing.MatLike) -> cv.typing.MatLike:
+        # create mask from non-black pixels in overlay
+        gray = cv.cvtColor(overlay_img, cv.COLOR_BGRA2GRAY)  # threshold needs single channel grayscale image
+        ret, mask = cv.threshold(gray, 10, 255, cv.THRESH_BINARY)
+        mask_inv = cv.bitwise_not(mask)
+
+        # use mask to clear out pixels
+        background = cv.bitwise_and(base_img, base_img, mask=mask_inv)
+        foreground = cv.bitwise_and(overlay_img, overlay_img, mask=mask)
+        combined = cv.add(background, foreground)
+
+        return combined
     
     def emit_wizard_done_signal(self):
         self.wizard_done_signal.emit()
