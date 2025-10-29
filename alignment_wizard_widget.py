@@ -107,8 +107,8 @@ class AlignmentWizardWidget(QWidget):
             
         elif(self.frame_n == self.SKIP_FRAMES):
             self.frame_n = 0
-            self.current_live_skeleton = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(0, 255, 0), line_thickness=3)
-            
+            self.current_live_skeleton = self.detector.grab_skeleton(self.raw_frame, line_color_bgra=(0, 255, 0, 255), line_thickness=3)
+
         else:
             self.frame_n = 0
         
@@ -134,7 +134,7 @@ class AlignmentWizardWidget(QWidget):
         self.imageLabel.setPixmap(pixmap)
     
     def save_current(self):
-        img = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(255, 0, 127), line_thickness=7)
+        img = self.detector.grab_skeleton(self.raw_frame, line_color_bgra=(255, 0, 127, 255), line_thickness=7)
         cv.imwrite("./alignment-save.png", cv.cvtColor(img, cv.COLOR_BGRA2RGBA))
         self.reload_overlay = True
     
