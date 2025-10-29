@@ -121,7 +121,6 @@ class AlignmentWizardWidget(QWidget):
             # if we don't have a saved overlay
             raw_with_saved_skeleton = self.raw_frame
         
-        print(self.current_live_skeleton.shape, self.current_live_skeleton[..., 3].min(), self.current_live_skeleton[..., 3].max())
         raw_with_both = self.overlay_opaque(raw_with_saved_skeleton, self.current_live_skeleton)
         
         qImg = QImage(
