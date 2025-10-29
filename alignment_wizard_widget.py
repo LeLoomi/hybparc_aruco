@@ -11,7 +11,7 @@ class AlignmentWizardWidget(QWidget):
     wizard_done_signal = pyqtSignal()
     
     reload_overlay = True
-    current_overlay = None
+    saved_skeleton = None
     preview_clock = QTimer()
     
     def __init__(self, arucoroi_detector, capture0: cv.VideoCapture, capture1: cv.VideoCapture):
@@ -21,7 +21,7 @@ class AlignmentWizardWidget(QWidget):
         self.capture0 = capture0
         self.capture1 = capture1
 
-        explainer_label = QLabel("<b>Willkommen bei der Kamera-Einstellungshilfe</b> <br>Die Rosa Boxen des Overlays sollten gut mit den ebenfalls markierten Markerkanten übereinstimmen. Im Idealfall \"verschwimmen\" sie mit den jeweiligen Kantenmarkierungen. Leichte Abweichungen sind in der Regel aber nicht schlimm.")
+        explainer_label = QLabel("<b>Willkommen bei der Kamera-Einstellungshilfe</b> <br>Die pinken Boxen des Overlays sollten gut mit den in Grün markierten Markerkanten übereinstimmen. Im Idealfall \"verschwimmen\" sie mit den jeweiligen Kantenmarkierungen. Leichte Abweichungen sind in der Regel aber nicht schlimm.  In der Einstellungshilfe sind nur Marker interessant, welche an der Puppe angebracht sind.")
 
         font = explainer_label.font()
         font.setPointSize(28)
@@ -81,16 +81,16 @@ class AlignmentWizardWidget(QWidget):
     
     # refreshes the preview image and reloads the overlay, if necessary / if reload flag is set
     def update_preview(self):
-        if(self.current_overlay is None):
+        if(self.saved_skeleton is None):
             try:
                 self.save_current()
             except:
                 pass
         
-        if(self.reload_overlay or self.current_overlay is None):
+        if(self.reload_overlay or self.saved_skeleton is None):
             try:
-                self.current_overlay = cv.imread("./alignment-save.png")
-                self.current_overlay = cv.cvtColor(self.current_overlay, cv.COLOR_BGRA2RGBA) # pyright: ignore[reportCallIssue, reportArgumentType]
+                self.saved_skeleton = cv.imread("./alignment-save.png")
+                self.saved_skeleton = cv.cvtColor(self.saved_skeleton, cv.COLOR_BGRA2RGBA) # pyright: ignore[reportCallIssue, reportArgumentType]
                 self.reload_overlay = False
             except:
                 pass
@@ -108,22 +108,29 @@ class AlignmentWizardWidget(QWidget):
         elif(self.frame_n == self.SKIP_FRAMES):
             self.frame_n = 0
             unfinished_result = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(0, 255, 0), line_thickness=5)
-            self.overlay_result = cv.cvtColor(unfinished_result, cv.COLOR_BGRA2RGBA)
+            self.current_live_skeleton = cv.cvtColor(unfinished_result, cv.COLOR_BGRA2RGBA)
             
         else:
             self.frame_n = 0
         
-        height, width, channel = self.overlay_result.shape
+        height, width, channel = self.current_live_skeleton.shape
         bytesPerLine = 4 * width
         
         try:
-            combined = cv.add(self.raw_frame, self.current_overlay) # pyright: ignore[reportArgumentType, reportCallIssue]
-        except:
-            combined = self.raw_frame
-        combined = cv.add(combined, self.overlay_result)
-        combined = combined
-        qImg = QImage(combined.data, width, height, bytesPerLine, QImage.Format.Format_RGBA8888)    
-        pixmap = QPixmap.fromImage(qImg).scaledToWidth(2300, Qt.TransformationMode.FastTransformation)
+            raw_and_saved_overlay = cv.add(self.raw_frame, self.saved_skeleton) # pyright: ignore[reportArgumentType, reportCallIssue]
+        except: 
+            # if we don't have a saved overlay
+            raw_and_saved_overlay = self.raw_frame
+        
+        raw_and_saved_overlay = cv.add(raw_and_saved_overlay, self.current_live_skeleton)
+        
+        qImg = QImage(
+            raw_and_saved_overlay.data, 
+            width, 
+            height, 
+            bytesPerLine, 
+            QImage.Format.Format_RGBA8888)
+        pixmap = QPixmap.fromImage(qImg).scaledToWidth(2300, Qt.TransformationMode.FastTransformation)  # 2300 is a good fit for our local scrren setup
         self.imageLabel.setPixmap(pixmap)
     
     def save_current(self):
