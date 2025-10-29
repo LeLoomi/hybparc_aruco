@@ -21,16 +21,25 @@ class AlignmentWizardWidget(QWidget):
         self.capture0 = capture0
         self.capture1 = capture1
 
-        explainer_label = QLabel("<b>Willkommen bei der Kamera-Einstellungshilfe</b> \nDie Rosa Boxen des Overlays sollten gut mit den ebenfalls markierten Markerkanten übereinstimmen. Im Idealfall \"verschwimmen\" sie mit den jeweiligen Kantenmarkierungen. Leichte Abweichungen sind in der Regel aber nicht schlimm.")
+        explainer_label = QLabel("<b>Willkommen bei der Kamera-Einstellungshilfe</b> <br>Die Rosa Boxen des Overlays sollten gut mit den ebenfalls markierten Markerkanten übereinstimmen. Im Idealfall \"verschwimmen\" sie mit den jeweiligen Kantenmarkierungen. Leichte Abweichungen sind in der Regel aber nicht schlimm.")
+
+        font = explainer_label.font()
+        font.setPointSize(28)
+        explainer_label.setTextFormat(Qt.TextFormat.RichText)
+        explainer_label.setAlignment(Qt.AlignmentFlag.AlignLeading)
+        explainer_label.setWordWrap(True)
+        explainer_label.setFont(font)
 
         self.imageLabel = QLabel()
 
         save_new_button = QPushButton()
         save_new_button.setText("Aktuelle Position speichern")
+        save_new_button.setFont(font)
         save_new_button.clicked.connect(self.save_current)
         
         done_button = QPushButton()
         done_button.setText("Anwendung starten")
+        done_button.setFont(font)
         done_button.clicked.connect(self.emit_wizard_done_signal)
 
         button_layout = QHBoxLayout()
@@ -98,7 +107,7 @@ class AlignmentWizardWidget(QWidget):
             
         elif(self.frame_n == self.SKIP_FRAMES):
             self.frame_n = 0
-            unfinished_result = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(57, 255, 20), line_thickness=5)
+            unfinished_result = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(0, 255, 0), line_thickness=5)
             self.overlay_result = cv.cvtColor(unfinished_result, cv.COLOR_BGRA2RGBA)
             
         else:
@@ -118,7 +127,8 @@ class AlignmentWizardWidget(QWidget):
         self.imageLabel.setPixmap(pixmap)
     
     def save_current(self):
-        cv.imwrite("./alignment-save.png", cv.cvtColor(self.overlay_result, cv.COLOR_BGRA2RGBA))
+        img = self.detector.grab_skeleton(self.raw_frame, line_color_bgr=(127, 0, 255), line_thickness=5)
+        cv.imwrite("./alignment-save.png", cv.cvtColor(img, cv.COLOR_BGRA2RGBA))
         self.reload_overlay = True
     
     def emit_wizard_done_signal(self):
