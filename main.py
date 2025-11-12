@@ -1,12 +1,13 @@
 import cv2 as cv    # sadly we have to load cv here, since we use it to capture the images
 from lib.detector import Detector
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtCore import Qt
 from welcome_widget import WelcomeWidget
 from login_widget import LoginWidget
 from place_electrodes_widget import PlaceElectrodesWidget
 from processing_widget import ProcessingWidget
 from results_widget import ResultsWidget
-from qt_material import apply_stylesheet    # optional prettifier
+from alignment_wizard_widget import AlignmentWizardWidget
 from json import load
 from time import sleep
 
@@ -16,12 +17,20 @@ class MainWindow(QMainWindow):
     detector_passes = 7
     warmup_passes = 11
     
+    CAMERA_INDEX0 = 0
+    CAMERA_INDEX1 = 4
+    
     roi_statuses = dict()
     
     # Entry into the GUI
     def __init__(self):
         print('[Hybparc] Booting up')
         super().__init__()
+        
+        # ! TMP
+        self.showMaximized()
+        self.setWindowTitle('Hybparc EKG (Aruco)')
+        self.detector = Detector(self.config_path)
         
         # Detector setup, loaded file is the ROI config
         self.detector = Detector(self.config_path)
@@ -32,11 +41,11 @@ class MainWindow(QMainWindow):
         
         # Setup and warm up cameras
         #! Adjustments are specific to the HP 960 4K in our physical setup
-        self.stream0 = cv.VideoCapture(index=0, apiPreference=cv.CAP_ANY)
+        self.stream0 = cv.VideoCapture(index=self.CAMERA_INDEX0, apiPreference=cv.CAP_ANY)
         self.stream0.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         self.stream0.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
         self.stream0.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
-        self.stream1 = cv.VideoCapture(index=4, apiPreference=cv.CAP_ANY)
+        self.stream1 = cv.VideoCapture(index=self.CAMERA_INDEX1, apiPreference=cv.CAP_ANY)
         self.stream1.set(cv.CAP_PROP_FOURCC, cv.VideoWriter.fourcc('M', 'J', 'P', 'G'))
         self.stream1.set(cv.CAP_PROP_FRAME_WIDTH, 3840)
         self.stream1.set(cv.CAP_PROP_FRAME_HEIGHT, 2160)
@@ -50,8 +59,14 @@ class MainWindow(QMainWindow):
     def show_welcome_widget(self):
         print('[Hybparc] Diplaying welcome widget')
         welcome_widget = WelcomeWidget()
-        welcome_widget.start_pressed.connect(self.show_place_electrodes)
+        welcome_widget.start_pressed.connect(self.show_alignment_wizard)
         self.setCentralWidget(welcome_widget)
+        
+    def show_alignment_wizard(self):
+        print('[Hybparc] Displaying alignemnt wizard widget')
+        alignemt_wizard_widget = AlignmentWizardWidget(self.detector, self.stream0, self.stream1)
+        alignemt_wizard_widget.wizard_done_signal.connect(self.show_place_electrodes)
+        self.setCentralWidget(alignemt_wizard_widget)
 
     # Helper func for login_widget
     def set_login_info(self, login_name, login_domain):
@@ -59,7 +74,7 @@ class MainWindow(QMainWindow):
         self.login_name = login_name
         self.login_domain = login_domain
 
-    # For loggin in with your institution, so your result can be uploaded (CURRENTLY DEPRECATED)
+    # For logging in with your institution, so your result can be uploaded (CURRENTLY DEPRECATED)
     def show_login_widget(self):
         print('[Hybparc] Diplaying login widget')
         login_widget = LoginWidget()
@@ -110,6 +125,5 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    #apply_stylesheet(app, theme='light_blue.xml')
     window.show()
     app.exec()
