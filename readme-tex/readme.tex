@@ -101,18 +101,18 @@ pdfkeywords={technische Anleitung, readme, Selbstlernen, EKG}
 { \LARGE \noindent Selbstlerneinheit 12-Kanal-EKG}
 
 \subsubsection*{Zusammenfassung}
-Dieses Readme umfasst die Inbetriebnahme der am \href{https://tu-dresden.de/med/mf/mitz}{Medizinisch Interprofessionellen Trainingszentrum} des Universitätsklinikum Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration und die Inbetriebnahme.
-Für substanzielle Teile dieses Guides wird Unterstützung der Haus-IT benötigt, das Guide ist geschrieben für Ubuntu Linux.
+Dieses Readme umfasst die Inbetriebnahme der am \href{https://tu-dresden.de/med/mf/mitz}{Medizinisch Interprofessionellen Trainingszentrum\emoji{link}} des Universitätsklinikums Dresden entwickelten EKG-Selbstlerneinheit für Studierende. Es beschreibt materielle und technische Voraussetzungen, ein empfohlenes räumliches Setup, Konfiguration, und die Inbetriebnahme.
+Für große Teile dieses Guides wird Unterstützung durch Haus-IT benötigt. Das Projekt und dieses Guide wurden geschrieben und entwickelt für Ubuntu 24 LTS.
 
 \section{Materielle Voraussetzungen {\includegraphics[height=0.65em]{emojis/shopping-bags.png}}}
 \label{sec:prerequisites}
 Zur idealen Verwendung des Projektes wird benötigt
 \begin{itemize}
     \item Eine Übungspuppe mit gut tastbaren Intercostalräumen
-    \item Ein 12-Kanal-EKG + Klebeelektroden
+    \item Ein 12-Kanal-EKG + Vorrat Klebeelektroden
     \item Zwei USB-Kameras mit hoher Auflösung
     \item Ein PC zum Ausführen der Projektsoftware
-    \item Ein Drucker, Klebeband und ein Klebestift
+    \item Ein Drucker mit bedruckbarer Folie, (doppelseitiges) Klebeband
 \end{itemize}
 
 \subsection{USB-Kameras}
@@ -147,7 +147,7 @@ Es sind alle dependencies des Projektes installiert.
 
 \section{Marker}
 \label{sec:ref-markers}
-Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt (ähnlich zu QR-Codes). Diese müssen auf Papier ausgedruckt werden (Empfehlung mind. 100g/m\textsuperscript{2}, vollweiß) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten. Die Marker haben verschiedene Abmessungen um für Distanzunterschiede (19, 29) und Überdeckungen (15, 16) zu kompensieren.
+Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt (ähnlich zu QR-Codes). Diese müssen ausgedruckt werden (Empfehlung mind. 100g/m\textsuperscript{2}, vollweiß. Ideal: matte, vollweiße, undurchlässige Druckfolie) und an der Übungspuppe bzw. an den Elektroden befestigt werden. Den Projektdaten liegt hierzu ein PDF bei, dieses sollte mit Skalierung 100\% ausgedruckt werden um die vorgesehenen Maße einzuhalten. Die Marker haben verschiedene Abmessungen um für Distanzunterschiede (19, 29) und Überdeckungen (15, 16) zu kompensieren.
 
 \noindent Die mitgelieferte Konfiguration deckt ein 12-Kanal EKG ab. Es werden insgesamt 15 Marker (10 Elektroden + 5 Ausrichtungsmarker) benötigt.
 
@@ -156,7 +156,6 @@ Zur Nutzung des Projekts werden sogenannte Arucomarker benötigt (ähnlich zu QR
 \begin{enumerate}
     \item Marker ausdrucken und anhand der Trennlinien ausschneiden
     \item Die Marker links, rechts und oben \enquote{trimmen}, sodass auf den drei Seiten ca. 1 bis 2 mm weiße Umrandung überbleibt.
-    \item Jeden Marker von \textbf{hinten} mit einem Streifen Klebeband bekleben (Klebeseite zum Marker hin)
     \item Den Marker Kantenparallel auf ein EKG-Klebepad kleben, sodass der Mittelpunk des Markers der oberen Kante des Befestigungsclips des Pads ca. vier bis fünf mm übersteht.
     \item Nun den unteren Teil des Markers zurechtstutzen.
     \item Den Marker mithilfe des Pad-Clips an die Elektrode anstecken, und so weit nach hinten schieben, dass bei Benutzung des Setups Platz für das eigentliche Pad ist.
@@ -176,7 +175,7 @@ Angestrebtes Endergebnis:
 
 \subsection{Ausrichtungsmarker}
 \label{ssec:reference-markers}
-Alle Ausrichtungsmarker müssen möglichst flach auf der Puppe angebracht werden. Es ist wichtig, dass sie unbeweglich sind und bleiben, sie dürfen nicht verdeckt werden.
+Alle Ausrichtungsmarker müssen möglichst flach auf der Puppe angebracht werden. Es ist wichtig, dass sie unbeweglich sind und bleiben. Sie dürfen im Nutzungsprozess nicht verdeckt werden.
 
 \subsection{Positionierung}
 \label{sssec:marker-positioning}
@@ -312,11 +311,18 @@ Je nach Unterschieden im Setup (Kameraauflösung, Kameradistanzen, Kamerawinkel)
     \includegraphics[width=10.5cm]{json-explainer.png}
 \end{figure}
 
-\noindent Die Positionierungen und Größen aller Bereiche müssen vor Verwendung des Projektes mit für medizinischem Personal überprüft und Fehler korrigiert werden. Um die Konfigurationen live anzupassen, empfiehlt es sich das Tool \href{https://github.com/leloomi/arucoroi}{ArucoRoi\emoji{link}} zu verwenden; es liegt dem Projekt bei und ermöglicht Live-Anpassung der Konfigurationen. Es muss über das Terminal im selben Conda-environment verwendet werden wie das Hauptprojekt (\code{conda activate hybparc}) und kann mit \code{python example.py} im Ordner \code{ArucoRoi} ausgeführt werden. 
+\noindent Die Positionierungen und Größen aller Bereiche müssen vor Verwendung des Projektes mit medizinischem Personal überprüft und Fehler korrigiert werden. Um die Konfigurationen live anzupassen, empfiehlt es sich das Tool \href{https://github.com/leloomi/arucoroi}{ArucoRoi\emoji{link}} zu verwenden; es liegt dem Projekt bei und ermöglicht Live-Anpassung der Konfigurationen. Es muss über das Terminal im selben Conda-environment verwendet werden wie das Hauptprojekt (\code{conda activate hybparc}) und kann mit \code{python example.py} im Ordner \code{ArucoRoi} ausgeführt werden. 
 
 Wenn das in diesem Ordner liegende Config-File verändert gespeichert wird, werden auch die Bereiche auch im Live-View aktualisiert. Um die Config mit der anderen Kamera zu testen muss in der \code{example.py}, Zeile 8, die Kamera ID geändert und ArucoRoi neugestartet werden (siehe \ref{ssec:cam-indices}). Die software kann mit \code{q} geschlossen werden.
 
 Die fertig angepasste Konfiguration muss abschließend noch in den \code{hybparc\_aruco} Ordner kopiert werden um die veraltete zu ersetzen.
+
+\section{Ausrichtungshilfe}
+\label{sec:alignment-wizard}
+Bei Softwarestart wird den Nutzenden eine Ausrichtungshilfe präsentiert. Diese kann dazu genutzt werden, die Soll-Positionen der an der Puppe angebrachten Ausrichtungsmarker zu prüfen (Delta 'Marker' vs. 'Kamera'). So können grobe positionelle Abweichungen der Extremitäten, oder Verdrehungen (Puppe zu Kamera), erkannt und an der Puppe behoben werden. 
+
+Der Assistent zeigt eine Live-Ansicht der Kameras. Die aktuell gespeicherte Ausrichtung wird dabei in Pink illustriert; die aktuell erkannte Ausrichtung in Grün. Eine neue Konfiguration kann über den Button \enquote{Aktuelle Position speichern} hinterlegt werden und überschreibt die bisher gespeicherte Position.
+
 \section{\includegraphics[height=0.65em]{emojis/police-light.png} Troubleshooting \includegraphics[height=0.65em]{emojis/police-light.png}}
 \label{sec:troubleshooting}
 
@@ -330,6 +336,9 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 \\
 {\footnotesize \includegraphics[height=0.6em]{emojis/warning.png} Nach Kontrolle Ordner löschen, die Bilder sind unkomprimiert und damit sehr groß! \includegraphics[height=0.6em]{emojis/warning.png}}
 
+\paragraph{Zustand der Marker}
+In Mitleidenschaft gezogene Marker können zu Erkennungsschwierigkeiten führen. Prinzipiell ist ein Marker ab dann zu ersetzen, solbald \textit{eines} seiner \enquote{kleinen Vierecke} farblich (schwarz) in sichtbare Mitleidenschaft gezogen wurde. Es empfiehlt sich, den Zustand aller Marker (Ausrichtung und Elektroden) regelmäßig zu kontrollieren.
+
 \section{Known Issues \includegraphics[height=0.65em]{emojis/pensive.png}}
 \label{sec:known-issues}
 \paragraph{Abhängigkeit von Lichtverhältnissen} Da die Software Kamerabasiert arbeitet, ist sie stark abhängig von den Lichtverhältnissen. Die besten Ergebnisse lassen sich erzielen, wenn Tageslicht vom Raum ausgeschlossen wird (Rollo) und dafür ausreichen top-down Beleuchtung durch das Deckenlicht erreicht wird.
@@ -338,6 +347,9 @@ Zur Kontrolle können die für die Auswertung genutzten Bilder abgespeichert wer
 
 \paragraph{Langsamer Autofokus}
 Leider sind die Auswertungen davon abhängig, dass der Autofokus der Kameras gut funktioniert. Hat eine Kamera einen schlechten Tag, so kann es sein, dass ein zweites Mal ausgewertet werden muss.
+
+\paragraph{Haltbarkeit der }
+Die zur Befestigung an den Elektroden umfunktionierten Klebepads sind von nennenswertem Verschleiß betroffen und sollten erneuert werden, sobald sie verformt sind oder ihr Befestigungsclip loose wird. Ein Redesign, hin zu 3D gedruckten spezialisierten Clips, steht aus.
 
 \section{Feedback}
 In diesem Guide nicht aufgeführte Fehler können gern via \href{https://github.com/LeLoomi/hybparc_aruco/issues}{GitHub Issues\emoji{link}} gemeldet werden, ebenso Verbesserungsvorschläge für dieses Readme.
