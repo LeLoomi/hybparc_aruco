@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QDialogButtonBox, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QDialog
 from PyQt6.QtSvgWidgets import QSvgWidget
 from PyQt6.QtGui import QPixmap, QIcon, QFont
-from PyQt6.QtCore import *
+from PyQt6.QtCore import Qt, QSize
 
 class TipsDialog(QDialog):
     
