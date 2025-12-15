@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QLabel, QHBoxLayout, QTreeWidget, QVBoxLayout, QTreeWidgetItem, QDialogButtonBox
 from PyQt6.QtGui import QPixmap, QIcon, QMovie, QFont
-from PyQt6.QtCore import QSize, pyqtSignal
+from PyQt6.QtCore import QSize, pyqtSignal, Qt
 from tips_dialog import TipsDialog
 
 class ResultsWidget(QWidget):
@@ -97,6 +97,7 @@ class ResultsWidget(QWidget):
         movie = QMovie('./gifs/bulb_flashing.gif')
 
         retryButton = buttonBox.addButton('Neuer Versuch', QDialogButtonBox.ButtonRole.AcceptRole)
+        retryButton.setShortcut(Qt.Key.Key_Return)
         retryButton.setFont(font)
         buttonBox.accepted.connect(self.emit_retry_triggered)
         
